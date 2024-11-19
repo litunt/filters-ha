@@ -1,0 +1,47 @@
+services:
+  filters-app-frontend:
+    container_name: filters-app-frontend
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    environment:
+      API_HOST: http://filters-app-backend:8081
+    ports:
+      - '4230:80'
+    depends_on:
+      - filters-app-backend
+    networks:
+      - filtersapp-net
+
+  filters-app-backend:
+    image: filters-app-backend:latest
+    hostname: filters-app-backend
+    container_name: filters_app_backend
+    environment:
+      APP_PORT: 8081
+      APP_DB: filtersdb
+      APP_DB_USER: user
+      APP_DB_PASSWORD: 12345
+      SPRING_PROFILES_ACTIVE: h2
+    ports:
+      - '8081:8081'
+    networks:
+      - filtersapp-net
+    depends_on:
+      - flyway
+
+  flyway:
+    image: flyway/flyway:latest
+    container_name: flyway
+    volumes:
+      - ../flyway/migration:/flyway/sql
+    environment:
+      FLYWAY_URL: jdbc:postgresql://jdbc:h2:mem:filtersdb
+      FLYWAY_USER: root
+      FLYWAY_PASSWORD: root
+    command: migrate
+    networks:
+      - filtersapp-net
+
+networks:
+  filtersapp-net:

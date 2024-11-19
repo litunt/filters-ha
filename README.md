@@ -1,58 +1,44 @@
-# Filters Application
+# Filters App (Askend test assignment)
 
-Application to present functionality of creating custom filters based on given requirements.
+## Project description
 
-## Getting Started
+### Business idea
+TBA
 
-### Prerequisites
+### Result
+The result of the assignment is working full-stack application with backend that is responsible for
+heavy logic and calculations, and frontend part that provides UI solution to send requests and see
+the result returned by backend application.
 
-* JDK 21
-* Docker
-* Docker-compose
+TBA
 
-Clone the project
+### Technology stack
 
-#### With Git HTTPS
-```
-git clone https://github.com/litunt/filters-ha.git
-```
+- **Front-end:** Angular 16, TypeScript, RxJS
+- **Back-end:** Java 21, Spring Boot, JPA, Flyway
 
-#### With Git SSH
-```
-git clone git@github.com:litunt/filters-ha.git
-```
+## Architecture
 
-## Running locally
+### Back-end
+To look through the structure of backend application, please look at following specifications.
+Docs: [FiltersApp/README.md](FiltersApp/README.md)
 
-Build the application
+### Front-end
+To look through the structure of frontend application, please look at following specifications.
+Docs: [frontend/README.md](frontend/README.md)
 
-```
-./gradlew build
-```
+## Running application locally with [docker-compose.yaml](docker/docker-compose.yaml) file
 
-Build docker image
+### Requirements
 
-```
-docker build -t filters-app .
-```
+- Docker v20
+- Docker Compose v2
 
-Run the application in docker container
+Run command
 
-```
+```sh
 docker-compose up -d
 ```
-
-### Lombok
-
-You need to enable Annotation processing
-`Build, Execution, Deployment → Compiler → Annotation Processors`
-
-For lombok you need to install lombok plugin.
-
-### Running the tests
-
-Run the tests
-
-```
-./gradlew clean test
-```
+The command starts all the listed services and the result is running `Docker` containers of
+frontend and backend applications, as well as Flyway (runs only once to perform migration tasks).
+H2 database is being setup on application startup.
