@@ -9,8 +9,8 @@ services:
     environment:
       APP_PORT: 8081
       APP_DB: filtersdb
-      APP_DB_USER: user
-      APP_DB_PASSWORD: 12345
+      APP_DB_USER: filters_user
+      APP_DB_PASSWORD: 123456
     ports:
       - '8081:8081'
     networks:
