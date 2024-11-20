@@ -23,12 +23,15 @@ with **environmental** variables
 
 ## Database
 
-Given project uses relational in-memory database H2. Database schema, including necessary tables and constraints is
+Given project uses relational database PostgreSQL. Database schema, including necessary tables and constraints is
 being generated automatically on application startup. Java library Hibernate helps with correct detection of
 object-entity relations.
 
+### Database schema
+
+
 ## Database migration
-As a database migration tool is used Flyway. Migrations are located under `src/resources/db/migration` package
+As a database migration tool is used Flyway. Migrations are located under `flyway/migration` package
 and file naming is structured as `V1__name`, where `V1` indicates the new version of the database that changes bring.
 
 ## Installation guide
@@ -36,8 +39,15 @@ and file naming is structured as `V1__name`, where `V1` indicates the new versio
 Application build result is `Docker image`.
 
 ## Building
-Although there is also an option to create a `Dockerfile` to build an application image for further usage, `Gradle`
-build tool actually provides a ready functionality to build `Docker` image of the application using `Gradle task`
+
+### Building application
+To build the latest version of the application:
+```sh
+./gradlew build
+```
+
+### Building application together with `Docker` image
+There is also an option use `Gradle`'s functionality to build `Docker` image of the application using `Gradle task`
 named `bootBuildImage`. This task also allows to upload the image to `DockerHub registry` using ` docker { publishRegistry {...} }`
 block by providing `DockerHub` credentials, but in this particular project this is not used.
 Application is running as `Docker` container along with corresponding _Gradle_ parameters as _properties_.
@@ -67,7 +77,9 @@ Running application tests:
 ```
 
 ## Running tests
-There are both unit and integration tests written. To write test scenarios, `Jupiter` library is used,
+There are both unit and integration tests written. Since integration tests require connection to the database,
+the `Test Containers` library is being used to set PostgreSQL container up only during running tests, so that
+it would not be necessary to start the real database up. To write test scenarios, `Jupiter` library is used,
 as well as `WebMVC` to emulate REST requests and `Mockito` to imitate beans.
 
 ## Using application locally
