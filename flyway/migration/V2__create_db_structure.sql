@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS filters_schema.criteria
     type         VARCHAR NOT NULL DEFAULT 'AMOUNT',
     filter_id    BIGINT  NOT NULL,
     condition_id BIGINT  NOT NULL,
-    FOREIGN KEY (filter_id) REFERENCES filters_schema.filter (id),
+    FOREIGN KEY (filter_id) REFERENCES filters_schema.filter (id) ON DELETE CASCADE,
     FOREIGN KEY (condition_id) REFERENCES filters_schema.condition (id)
 );
 
@@ -33,19 +33,19 @@ CREATE TABLE IF NOT EXISTS filters_schema.criteria_amount
 (
     id           SERIAL PRIMARY KEY,
     number_value DECIMAL(10) NOT NULL,
-    FOREIGN KEY (id) REFERENCES filters_schema.criteria (id)
+    FOREIGN KEY (id) REFERENCES filters_schema.criteria (id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS filters_schema.criteria_title
 (
     id         SERIAL PRIMARY KEY,
     text_value VARCHAR NOT NULL,
-    FOREIGN KEY (id) REFERENCES filters_schema.criteria (id)
+    FOREIGN KEY (id) REFERENCES filters_schema.criteria (id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS filters_schema.criteria_date
 (
     id         SERIAL PRIMARY KEY,
     date_value DATE NOT NULL,
-    FOREIGN KEY (id) REFERENCES filters_schema.criteria (id)
+    FOREIGN KEY (id) REFERENCES filters_schema.criteria (id) ON DELETE CASCADE
 );

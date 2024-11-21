@@ -1,5 +1,6 @@
-package com.ha.filters.repository.entity.condition;
+package com.ha.filters.entity.condition;
 
+import static jakarta.persistence.DiscriminatorType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static jakarta.persistence.InheritanceType.SINGLE_TABLE;
 
@@ -11,21 +12,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @Entity
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@ToString
-@EqualsAndHashCode
 @Inheritance(strategy = SINGLE_TABLE)
-@DiscriminatorColumn(name = "condition_type")
+@DiscriminatorColumn(name = "condition_type", discriminatorType = STRING)
 @Table(name = "condition", schema = "filters_schema")
 public class ConditionEntity {
 
