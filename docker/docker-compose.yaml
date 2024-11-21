@@ -1,6 +1,21 @@
 services:
+  filters-app-frontend:
+    image: filters-app-frontend:latest
+    container_name: filters-app-frontend
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    environment:
+      API_HOST: http://filters-app-backend:8081
+    ports:
+      - '4230:80'
+    depends_on:
+      - filters-app-backend
+    networks:
+      - filtersapp-net
 
   filters-app-backend:
+    image: filters-app-backend:latest
     hostname: filters-app-backend
     container_name: filters_app_backend
     build:

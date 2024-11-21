@@ -11,7 +11,7 @@
 
 * config - configuration layer, provides configurations for application
 * controller - controller layer, accepts REST requests
-* domain - model layer, contains the structure of models used throughout the application
+* model - model layer, contains the structure of models (domains) used throughout the application
 * enums - holds enumerated value classes
 * exceptions - layer that contains exception handling objects
 * repository - layer with repository interfaces to get data from the database
@@ -26,6 +26,8 @@ Configuration file [application.yaml](src/main/resources/application.yaml),
 with **environmental** variables
 
 * `APP_PORT` - Java application port
+* `APP_DB_HOST` - database connection host
+* `APP_DB_PORT` - database connection port
 * `APP_DB` - database schema name
 * `APP_DB_USER` - database user username
 * `APP_DB_PASSWORD` - database user password
@@ -38,6 +40,7 @@ object-entity relations.
 
 ### Database schema
 
+![Filters db schema](../static/filters-db-erd.png)
 
 ## Database migration
 As a database migration tool is used Flyway. Migrations are located under `flyway/migration` package
@@ -45,7 +48,11 @@ and file naming is structured as `V1__name`, where `V1` indicates the new versio
 
 ## Installation guide
 
-Application build result is `Docker image`.
+Application is being built as `Docker image`.
+
+```sh
+docker build --no-cache -t filters-app-backend .
+```
 
 ## Building
 

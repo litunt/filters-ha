@@ -14,8 +14,9 @@ TBA
 
 ### Technology stack
 
-- **Front-end:** Angular 16, TypeScript, RxJS
+- **Front-end:** Angular 18, TypeScript, RxJS
 - **Back-end:** Java 21, Spring Boot, JPA, Flyway
+- **Database:** PostgreSQL
 
 ## Architecture
 
