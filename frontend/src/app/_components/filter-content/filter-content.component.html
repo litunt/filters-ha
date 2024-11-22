@@ -1,0 +1,21 @@
+<div class="grid">
+  <ng-container *ngIf="isEditMode">
+    <div class="col-2">
+      <b>Filter name</b>
+    </div>
+    <div class="col-10">
+      <input pInputText
+             [value]="filter?.name"/>
+    </div>
+  </ng-container>
+  <div class="col-2">
+    <b>Criteria</b>
+  </div>
+  <div class="col-10">
+    <criteria-row *ngFor="let criteria of filter?.criteriaList"
+                  [criteriaConditions]="criteriaConditions"
+                  [criteria]="criteria"
+                  [editMode]="isEditMode">
+    </criteria-row>
+  </div>
+</div>

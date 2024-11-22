@@ -10,8 +10,11 @@ import {FormsModule} from "@angular/forms";
 import {DataTableComponent} from "../../_components/data-table/data-table.component";
 import {ModalDialogComponent} from "../../_components/modal-dialog/modal-dialog.component";
 import {CriteriaRowComponent} from "../../_components/criteria-row/criteria-row.component";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {FilterOptionsService} from "../../_services/filterOptions.service";
+import {FilterOptions} from "../../_models/filterOptions";
+import {InputTextModule} from "primeng/inputtext";
+import {FilterContentComponent} from "../../_components/filter-content/filter-content.component";
 
 @Component({
   selector: 'app-main-page',
@@ -24,7 +27,10 @@ import {FilterOptionsService} from "../../_services/filterOptions.service";
     DataTableComponent,
     ModalDialogComponent,
     CriteriaRowComponent,
-    NgForOf
+    NgForOf,
+    NgIf,
+    InputTextModule,
+    FilterContentComponent
   ],
   templateUrl: './main-page.component.html',
 })
@@ -33,6 +39,8 @@ export class MainPageComponent implements OnInit {
   readonly properties: string[] = ['name'];
   filters: Filter[] = [];
   selectedFilter!: Filter;
+  filterOptions!: FilterOptions;
+
   displayFilterModal: boolean = false;
   isEditMode: boolean = false;
 
@@ -43,6 +51,7 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadFilters();
+    this.loadFilterOptions();
   }
 
   onFilterSelected(filter: Filter): void {
@@ -56,6 +65,15 @@ export class MainPageComponent implements OnInit {
       tap((filters: Filter[]) => {
         this.loaderService.setLoading(false);
         this.filters = filters;
+      })
+    ).subscribe();
+  }
+
+  loadFilterOptions(): void {
+    this.filterOptionsService.getFilterOptions().pipe(
+      tap((filterOptions: FilterOptions) => {
+        filterOptions.criteriaConditions = new Map(Object.entries(filterOptions.criteriaConditions));
+        this.filterOptions = filterOptions;
       })
     ).subscribe();
   }

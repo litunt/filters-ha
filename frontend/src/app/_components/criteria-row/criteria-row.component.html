@@ -1,20 +1,16 @@
 <form [formGroup]="criteriaForm">
   <div class="grid">
-    <div class="col-4">
-      <p-dropdown *ngIf="editMode"
+    <div *ngIf="criteria && editMode || !criteria" class="col-4">
+      <p-dropdown
         [options]="criteriaTypes"
         [formControlName]="'selectedType'"
         [optionLabel]="'title'"
-        [placeholder]="selectedType.title"/>
-      <input *ngIf="!editMode"
-             pInputText readonly
-             type="text"
-             [value]="criteriaForm.get('selectedType')?.value!.title" />
+        [placeholder]="criteriaForm.get('selectedType')?.value!.title"/>
     </div>
     <div *ngIf="!criteria" class="col-8">
       <ng-container *ngTemplateOutlet="criteriaAmount"></ng-container>
     </div>
-    <div *ngIf="criteria" class="col-8" [ngSwitch]="criteria.type">
+    <div *ngIf="criteria && editMode" class="col-8" [ngSwitch]="criteria.type">
       <div *ngSwitchCase="'AMOUNT'">
         <ng-container *ngTemplateOutlet="criteriaAmount"></ng-container>
       </div>
@@ -25,24 +21,41 @@
         <ng-container *ngTemplateOutlet="criteriaDate"></ng-container>
       </div>
     </div>
+    <ng-container *ngIf="criteria && !editMode">
+      <div class="col-4">
+        <input pInputText readonly
+               type="text"
+               [value]="criteriaForm.get('selectedType')?.value!.title" />
+      </div>
+      <div class="col-4">
+        <input pInputText readonly
+               type="text"
+               [value]="criteriaForm.get('selectedCondition')?.value!.title" />
+      </div>
+      <div class="col-4">
+        <input pInputText readonly
+               type="text"
+               [value]="criteriaForm.get('selectedValue')?.value" />
+      </div>
+    </ng-container>
   </div>
 </form>
 
 <ng-template #criteriaAmount>
-  <div class="grid">
+  <div class="grid" [formGroup]="criteriaForm">
     <div class="col-6">
       <p-dropdown *ngIf="editMode"
         [style]="{ width: 'auto' }"
-        [options]="criteriaTypes"
-        [(ngModel)]="selectedType"
+        [options]="amountConditions"
+        [formControlName]="'selectedCondition'"
         [optionLabel]="'title'"
-        [placeholder]="selectedType.title"/>
+        [placeholder]="criteriaForm.get('selectedCondition')?.value!.title"/>
     </div>
     <div class="col-6">
       <p-inputNumber
         mode="decimal"
         [showButtons]="true"
-        inputId="minmax-buttons"
+        [formControlName]="'selectedValue'"
         [min]="0"
         [max]="100"/>
     </div>
@@ -50,9 +63,38 @@
 </ng-template>
 
 <ng-template #criteriaTitle>
-
+  <div class="grid" [formGroup]="criteriaForm">
+    <div class="col-6">
+      <p-dropdown *ngIf="editMode"
+                  [style]="{ width: 'auto' }"
+                  [options]="textConditions"
+                  [formControlName]="'selectedCondition'"
+                  [optionLabel]="'title'"
+                  [placeholder]="criteriaForm.get('selectedCondition')?.value!.title"/>
+    </div>
+    <div class="col-6">
+      <input pInputText
+        [formControlName]="'selectedValue'"/>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #criteriaDate>
-
+  <div class="grid" [formGroup]="criteriaForm">
+    <div class="col-6">
+      <p-dropdown *ngIf="editMode"
+                  [style]="{ width: 'auto' }"
+                  [options]="dateConditions"
+                  [formControlName]="'selectedCondition'"
+                  [optionLabel]="'title'"
+                  [placeholder]="criteriaForm.get('selectedCondition')?.value!.title"/>
+    </div>
+    <div class="col-6">
+      <div class="card flex justify-content-center">
+        <p-calendar [formControlName]="'selectedValue'"
+                    [showIcon]="true"
+                    [dateFormat]="'dd.mm.yy'"/>
+      </div>
+    </div>
+  </div>
 </ng-template>

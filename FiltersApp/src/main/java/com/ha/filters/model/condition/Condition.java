@@ -7,5 +7,6 @@ public abstract class Condition {
 
   private Long id;
   private String title;
+  private String conditionType;
 
 }

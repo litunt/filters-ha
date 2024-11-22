@@ -10,6 +10,7 @@ import com.ha.filters.model.criteria.CriteriaAmount;
 import com.ha.filters.model.criteria.CriteriaDate;
 import com.ha.filters.model.criteria.CriteriaTitle;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 @Mapper(
