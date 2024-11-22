@@ -20,9 +20,13 @@
 </div>
 <modal-dialog [body]="modalContent"
               [filter]="selectedFilter"
-              [(displayModal)]="displayFilterModal">
+              [(displayModal)]="displayFilterModal"
+              [(editMode)]="isEditMode">
 </modal-dialog>
 
 <ng-template #modalContent>
-  <criteria-row *ngFor="let criteria of selectedFilter.criteriaList" [criteria]="criteria"></criteria-row>
+  <criteria-row *ngFor="let criteria of selectedFilter.criteriaList"
+                [criteria]="criteria"
+                [editMode]="isEditMode">
+  </criteria-row>
 </ng-template>

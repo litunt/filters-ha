@@ -7,7 +7,12 @@
           [style]="{ minWidth: '50rem', minHeight: '30rem' }">
   <ng-container *ngTemplateOutlet="body"></ng-container>
   <ng-template pTemplate="footer">
-    <p-button styleClass="secondary-button" label="Close" (onClick)="closeModal()" />
-    <p-button styleClass="success-button" label="Save" (onClick)="closeModal()" />
+    <div *ngIf="isEditMode" >
+      <p-button styleClass="secondary-button" label="Close" (onClick)="closeModal()" />
+      <p-button styleClass="success-button" label="Save" (onClick)="closeModal()" />
+    </div>
+    <div *ngIf="!isEditMode" class="flex justify-content-start gap-2">
+      <p-button styleClass="secondary-button" label="Edit" (onClick)="onEditMode(true)" />
+    </div>
   </ng-template>
 </p-dialog>

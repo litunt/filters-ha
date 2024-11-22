@@ -5,6 +5,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CriteriaTypeEnum} from "../../_models/enums/criteriaType.enum";
 import {PaginatorModule} from "primeng/paginator";
+import {ChipsModule} from "primeng/chips";
 
 @Component({
   selector: 'criteria-row',
@@ -17,7 +18,8 @@ import {PaginatorModule} from "primeng/paginator";
     DropdownModule,
     FormsModule,
     PaginatorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChipsModule
   ],
   templateUrl: './criteria-row.component.html',
   styleUrl: './criteria-row.component.css'
@@ -35,6 +37,7 @@ export class CriteriaRowComponent implements OnInit {
   selectedType: CriteriaType = { title: 'Amount', type: CriteriaTypeEnum.AMOUNT };
 
   @Input() criteria?: Criteria;
+  @Input() editMode: boolean = false;
 
   ngOnInit(): void {
     if (this.criteria) {

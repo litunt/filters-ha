@@ -34,6 +34,7 @@ export class MainPageComponent implements OnInit {
   filters: Filter[] = [];
   selectedFilter!: Filter;
   displayFilterModal: boolean = false;
+  isEditMode: boolean = false;
 
   constructor(private filtersService: FiltersService,
               private filterOptionsService: FilterOptionsService,

@@ -19,9 +19,14 @@ import {Button} from "primeng/button";
 export class ModalDialogComponent {
 
   display: boolean = false;
+  isEditMode: boolean = false;
 
   @Input() body: TemplateRef<Element> | null = null;
   @Input() filter!: Filter;
+  @Output() editModeChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() set editMode(value: boolean) {
+    this.isEditMode = value;
+  }
   @Output() displayModalChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() set displayModal(value: boolean) {
     this.display = value;
@@ -30,5 +35,11 @@ export class ModalDialogComponent {
   closeModal(): void {
     this.display = false;
     this.displayModalChange.emit(false);
+    this.onEditMode(false);
+  }
+
+  onEditMode(isEdit: boolean): void {
+    this.isEditMode = isEdit;
+    this.editModeChange.emit(isEdit);
   }
 }
