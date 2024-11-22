@@ -1,4 +1,4 @@
-@import "../../../node_modules/primeng/resources/themes/lara-light-teal/theme.css";
+@import "../../../node_modules/primeng/resources/themes/soho-light/theme.css";
 @import "../../../node_modules/primeng/resources/primeng.min.css";
 @import "../../../node_modules/primeflex/primeflex.css";
 
@@ -25,6 +25,15 @@ body {
 
 .align-right {
   float: right;
+}
+
+.p-dialog-header .p-button {
+  background: transparent;
+}
+
+.p-dialog-header .p-button:hover {
+  background: transparent;
+  border-color: var(--focus-ring)
 }
 
 .p-button {

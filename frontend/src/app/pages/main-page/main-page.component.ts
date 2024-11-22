@@ -8,6 +8,7 @@ import {Button} from "primeng/button";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {FormsModule} from "@angular/forms";
 import {DataTableComponent} from "../../_components/data-table/data-table.component";
+import {ModalDialogComponent} from "../../_components/modal-dialog/modal-dialog.component";
 
 @Component({
   selector: 'app-main-page',
@@ -17,7 +18,8 @@ import {DataTableComponent} from "../../_components/data-table/data-table.compon
     Button,
     InputSwitchModule,
     FormsModule,
-    DataTableComponent
+    DataTableComponent,
+    ModalDialogComponent
   ],
   templateUrl: './main-page.component.html',
 })
@@ -26,6 +28,7 @@ export class MainPageComponent implements OnInit {
   readonly properties: string[] = ['name'];
   filters: Filter[] = [];
   selectedFilter!: Filter;
+  displayFilterModal: boolean = false;
 
   constructor(private filtersService: FiltersService,
               private loaderService: LoaderService) {
@@ -35,13 +38,17 @@ export class MainPageComponent implements OnInit {
     this.loadFilters();
   }
 
+  onFilterSelected(filter: Filter): void {
+    this.selectedFilter = filter;
+    this.displayFilterModal = true;
+  }
+
   loadFilters(): void {
     this.loaderService.setLoading(true);
     this.filtersService.getFilters().pipe(
       tap((filters: Filter[]) => {
         this.loaderService.setLoading(false);
         this.filters = filters;
-        console.log(this.filters);
       })
     ).subscribe();
   }
