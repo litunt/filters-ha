@@ -1,6 +1,6 @@
+import {NgModule, provideZoneChangeDetection} from "@angular/core";
 import {AppComponent} from "./app.component";
 import {BrowserModule} from "@angular/platform-browser";
-import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClient, provideHttpClient} from "@angular/common/http";
@@ -9,15 +9,22 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import {LoaderComponent} from "./_components/loader/loader.component";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {FooterComponent} from "./_components/footer/footer.component";
+import {DividerModule} from "primeng/divider";
+import {AppRoutingModule} from "./app-routing.module";
+import {MessageService} from "primeng/api";
+import {InputSwitchModule} from "primeng/inputswitch";
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoaderComponent
+    LoaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     ToastModule,
     TranslateModule.forRoot({
@@ -27,9 +34,13 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
         deps: [HttpClient]
       }
     }),
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    DividerModule,
+    InputSwitchModule
   ],
   providers: [
+    MessageService,
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient()
   ],
   bootstrap: [AppComponent]

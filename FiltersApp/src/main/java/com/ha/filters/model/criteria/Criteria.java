@@ -8,4 +8,5 @@ public abstract class Criteria {
 
   private Long id;
 
+  private CriteriaType type;
 }

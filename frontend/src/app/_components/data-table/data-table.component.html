@@ -1,0 +1,13 @@
+<p-table
+  [value]="dataList"
+  selectionMode="single"
+  [(selection)]="selected"
+  dataKey="id"
+  (onRowSelect)="onRowSelect($event)"
+  [tableStyle]="{'min-width': '50rem'}">
+  <ng-template pTemplate="body" let-dataValue>
+    <tr [pSelectableRow]="dataValue">
+      <td *ngFor="let property of properties">{{dataValue[property]}}</td>
+    </tr>
+  </ng-template>
+</p-table>
