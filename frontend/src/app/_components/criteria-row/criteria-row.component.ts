@@ -12,6 +12,8 @@ import {CriteriaAmount} from "../../_models/criteriaAmount";
 import {CriteriaTitle} from "../../_models/criteriaTitle";
 import {CriteriaDate} from "../../_models/criteriaDate";
 import {CalendarModule} from "primeng/calendar";
+import {AppModule} from "../../app.module";
+import {DatePipe} from "../../_util/datePipe";
 
 @Component({
   selector: 'criteria-row',
@@ -26,12 +28,13 @@ import {CalendarModule} from "primeng/calendar";
     PaginatorModule,
     ReactiveFormsModule,
     ChipsModule,
-    CalendarModule
+    CalendarModule,
+    DatePipe
   ],
   templateUrl: './criteria-row.component.html',
   styleUrl: './criteria-row.component.css'
 })
-export class CriteriaRowComponent implements OnInit, OnChanges {
+export class CriteriaRowComponent implements OnInit {
 
   readonly criteriaTypes: CriteriaType[] = [
     { title: 'Amount', type: CriteriaTypeEnum.AMOUNT },
@@ -65,18 +68,6 @@ export class CriteriaRowComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['editMode']) {
-      if (this.criteriaForm.get('selectedType')?.value!.type === CriteriaTypeEnum.DATE) {
-        if (this.editMode) {
-          this.criteriaForm.get('selectedValue')?.setValue(new Date((this.criteria as CriteriaDate).dateValue));
-        } else if (!this.editMode) {
-          this.criteriaForm.get('selectedValue')?.setValue((this.criteria as CriteriaDate).dateValue);
-        }
-      }
-    }
-  }
-
   private mapConditionsByType(): void {
     this.amountConditions = this.criteriaConditions?.get(ConditionTypeEnum.AmountCondition)!;
     this.textConditions = this.criteriaConditions?.get(ConditionTypeEnum.TextCondition)!;
@@ -90,7 +81,7 @@ export class CriteriaRowComponent implements OnInit, OnChanges {
       case CriteriaTypeEnum.TITLE:
         return (this.criteria as CriteriaTitle).textValue;
       case CriteriaTypeEnum.DATE:
-        return (this.criteria as CriteriaDate).dateValue;
+        return new Date((this.criteria as CriteriaDate).dateValue);
     }
     return 0;
   }

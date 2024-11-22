@@ -14,6 +14,12 @@ import {DividerModule} from "primeng/divider";
 import {AppRoutingModule} from "./app-routing.module";
 import {MessageService} from "primeng/api";
 import {InputSwitchModule} from "primeng/inputswitch";
+import {DatePipe} from "./_util/datePipe";
+import {DropdownModule} from "primeng/dropdown";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {PaginatorModule} from "primeng/paginator";
+import {ChipsModule} from "primeng/chips";
+import {CalendarModule} from "primeng/calendar";
 
 @NgModule({
   declarations: [
@@ -36,12 +42,22 @@ import {InputSwitchModule} from "primeng/inputswitch";
     }),
     ProgressSpinnerModule,
     DividerModule,
-    InputSwitchModule
+    InputSwitchModule,
+    DropdownModule,
+    FormsModule,
+    PaginatorModule,
+    ReactiveFormsModule,
+    ChipsModule,
+    CalendarModule,
+    DatePipe
   ],
   providers: [
     MessageService,
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideZoneChangeDetection({eventCoalescing: true}),
     provideHttpClient()
+  ],
+  exports: [
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

@@ -25,7 +25,8 @@
 </modal-dialog>
 
 <ng-template #modalContent>
-  <app-filter-content [isEditMode]="isEditMode"
+  <filter-content [isEditMode]="isEditMode"
                       [filter]="selectedFilter"
+                      [selections]="filterOptions.selections"
                       [criteriaConditions]="filterOptions.criteriaConditions"/>
 </ng-template>

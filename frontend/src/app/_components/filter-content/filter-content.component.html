@@ -18,4 +18,11 @@
                   [editMode]="isEditMode">
     </criteria-row>
   </div>
+  <div class="col-2">
+    <b>Selection</b>
+  </div>
+  <div class="col-10">
+    <radio-button-group [selections]="selections"
+                            [selected]="filter?.selection"/>
+  </div>
 </div>
