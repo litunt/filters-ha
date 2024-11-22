@@ -18,4 +18,11 @@
   </div>
   <div class="col-2"></div>
 </div>
-<modal-dialog [filter]="selectedFilter" [(displayModal)]="displayFilterModal"></modal-dialog>
+<modal-dialog [body]="modalContent"
+              [filter]="selectedFilter"
+              [(displayModal)]="displayFilterModal">
+</modal-dialog>
+
+<ng-template #modalContent>
+  <criteria-row *ngFor="let criteria of selectedFilter.criteriaList" [criteria]="criteria"></criteria-row>
+</ng-template>

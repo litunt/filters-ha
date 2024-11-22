@@ -1,7 +1,9 @@
 <p-table
+  #dataTable
   [value]="dataList"
-  selectionMode="single"
-  dataKey="id"
+  [selectionMode]="'single'"
+  [dataKey]="'id'"
+  [(selection)]="selected"
   (onRowSelect)="onRowSelect($event)"
   [tableStyle]="{'min-width': '50rem'}">
   <ng-template pTemplate="body" let-dataValue>

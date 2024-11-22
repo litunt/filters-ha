@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {PrimeTemplate} from "primeng/api";
-import {TableModule, TableRowSelectEvent} from "primeng/table";
+import {Table, TableModule, TableRowSelectEvent} from "primeng/table";
 import {NgForOf} from "@angular/common";
 
 @Component({
@@ -19,11 +19,20 @@ export class DataTableComponent<T> {
   @Input() properties!: string[];
   @Input() dataList!: T[];
 
-  selected?: T;
+  selected?: T | null;
 
   @Output() dataRowSelected: EventEmitter<T> = new EventEmitter<T>();
 
+  @ViewChild('dataTable') dataTable?: Table;
+
   onRowSelect(event: TableRowSelectEvent): void {
     this.dataRowSelected.emit(event.data);
+    this.clearSelection();
+  }
+
+  private clearSelection(): void {
+    this.selected = null;
+    this.dataTable!.selection = null;
+    this.dataTable!.updateSelectionKeys();
   }
 }

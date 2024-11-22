@@ -1,0 +1,54 @@
+<form [formGroup]="criteriaForm">
+  <div class="grid">
+    <div class="col-4">
+      <p-dropdown
+        [options]="criteriaTypes"
+        [formControlName]="'selectedType'"
+        [optionLabel]="'title'"
+        [placeholder]="selectedType.title"/>
+    </div>
+    <div *ngIf="!criteria" class="col-8">
+      <ng-container *ngTemplateOutlet="criteriaAmount"></ng-container>
+    </div>
+    <div *ngIf="criteria" class="col-8" [ngSwitch]="criteria.type">
+      <div *ngSwitchCase="'AMOUNT'">
+        <ng-container *ngTemplateOutlet="criteriaAmount"></ng-container>
+      </div>
+      <div *ngSwitchCase="'TITLE'">
+        <ng-container *ngTemplateOutlet="criteriaTitle"></ng-container>
+      </div>
+      <div *ngSwitchCase="'DATE'">
+        <ng-container *ngTemplateOutlet="criteriaDate"></ng-container>
+      </div>
+    </div>
+  </div>
+</form>
+
+<ng-template #criteriaAmount>
+  <div class="grid">
+    <div class="col-6">
+      <p-dropdown
+        [style]="{ width: 'auto' }"
+        [options]="criteriaTypes"
+        [(ngModel)]="selectedType"
+        [optionLabel]="'title'"
+        [placeholder]="selectedType.title"/>
+    </div>
+    <div class="col-6">
+      <p-inputNumber
+        mode="decimal"
+        [showButtons]="true"
+        inputId="minmax-buttons"
+        [min]="0"
+        [max]="100"/>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #criteriaTitle>
+
+</ng-template>
+
+<ng-template #criteriaDate>
+
+</ng-template>

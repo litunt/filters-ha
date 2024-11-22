@@ -7,4 +7,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class TextCondition extends Condition {
 
+  private String conditionType = "TextCondition";
+
 }

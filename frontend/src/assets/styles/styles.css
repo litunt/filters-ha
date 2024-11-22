@@ -7,13 +7,14 @@
   --primary-background-color: #b8b7f5;
   --extra-color: #f4d68a;
   --text-color-secondary: #f4f4f5;
+  --text-color-secondary-darker: #c7c7c7;
   --primary-color: #4a31ae;
   --primary-color-dark: #2b1781;
   --primary-color-text: #ffffff;
 }
 
 body, html {
-  font-size: 150%;
+  font-size: 120%;
   font-family: Segoe UI, Frutiger, Frutiger Linotype, Dejavu Sans, Helvetica Neue, Arial, sans-serif;
 }
 
@@ -45,10 +46,34 @@ body {
   background-color: var(--primary-color-dark);
 }
 
+.secondary-button {
+  background-color: var(--text-color-secondary-darker);
+  border-color: var(--text-color-secondary-darker)
+}
+
+.secondary-button:hover {
+  background-color: var(--extra-color);
+  border-color: transparent;
+}
+
+.success-button {
+  background-color: var(--green-500);
+  border-color: transparent
+}
+
+.success-button:hover {
+  background-color: var(--green-700);
+  border-color: transparent;
+}
+
 a {
   color: var(--primary-color);
 }
 
 a:hover {
   color: var(--extra-color);
+}
+
+p-dropdown {
+  display: grid;
 }

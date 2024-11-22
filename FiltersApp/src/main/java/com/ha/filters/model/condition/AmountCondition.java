@@ -7,4 +7,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class AmountCondition extends Condition {
 
+  private String conditionType = "AmountCondition";
+
 }

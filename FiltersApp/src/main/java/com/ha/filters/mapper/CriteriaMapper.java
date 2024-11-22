@@ -12,29 +12,34 @@ import com.ha.filters.model.criteria.CriteriaTitle;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 
-@Mapper(config = MapStructConfig.class)
+@Mapper(
+    config = MapStructConfig.class,
+    uses = {
+        ConditionMapper.class
+    }
+)
 public interface CriteriaMapper {
 
   @Named("mapToCriteriaByType")
   default Criteria mapToCriteriaByType(CriteriaEntity entity) {
-    if (entity instanceof CriteriaAmountEntity) {
-      return toCriteriaAmountDomain((CriteriaAmountEntity) entity);
-    } else if (entity instanceof CriteriaTitleEntity) {
-      return toCriteriaTitleDomain((CriteriaTitleEntity) entity);
-    } else if (entity instanceof CriteriaDateEntity) {
-      return toCriteriaDataDomain((CriteriaDateEntity) entity);
+    if (entity instanceof CriteriaAmountEntity criteriaAmountEntity) {
+      return toCriteriaAmountDomain(criteriaAmountEntity);
+    } else if (entity instanceof CriteriaTitleEntity criteriaTitleEntity) {
+      return toCriteriaTitleDomain(criteriaTitleEntity);
+    } else if (entity instanceof CriteriaDateEntity criteriaDateEntity) {
+      return toCriteriaDataDomain(criteriaDateEntity);
     }
     return null;
   }
 
   @Named("mapToCriteriaEntityByType")
   default CriteriaEntity mapToCriteriaEntityByType(Criteria domain) {
-    if (domain instanceof CriteriaAmount) {
-      return toCriteriaAmountEntity((CriteriaAmount) domain);
-    } else if (domain instanceof CriteriaTitle) {
-      return toCriteriaTitleEntity((CriteriaTitle) domain);
-    } else if (domain instanceof CriteriaDate) {
-      return toCriteriaDataEntity((CriteriaDate) domain);
+    if (domain instanceof CriteriaAmount criteriaAmount) {
+      return toCriteriaAmountEntity(criteriaAmount);
+    } else if (domain instanceof CriteriaTitle criteriaTitle) {
+      return toCriteriaTitleEntity(criteriaTitle);
+    } else if (domain instanceof CriteriaDate criteriaDate) {
+      return toCriteriaDataEntity(criteriaDate);
     }
     return null;
   }

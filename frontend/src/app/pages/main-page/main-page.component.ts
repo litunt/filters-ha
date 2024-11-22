@@ -9,6 +9,9 @@ import {InputSwitchModule} from "primeng/inputswitch";
 import {FormsModule} from "@angular/forms";
 import {DataTableComponent} from "../../_components/data-table/data-table.component";
 import {ModalDialogComponent} from "../../_components/modal-dialog/modal-dialog.component";
+import {CriteriaRowComponent} from "../../_components/criteria-row/criteria-row.component";
+import {NgForOf} from "@angular/common";
+import {FilterOptionsService} from "../../_services/filterOptions.service";
 
 @Component({
   selector: 'app-main-page',
@@ -19,7 +22,9 @@ import {ModalDialogComponent} from "../../_components/modal-dialog/modal-dialog.
     InputSwitchModule,
     FormsModule,
     DataTableComponent,
-    ModalDialogComponent
+    ModalDialogComponent,
+    CriteriaRowComponent,
+    NgForOf
   ],
   templateUrl: './main-page.component.html',
 })
@@ -31,6 +36,7 @@ export class MainPageComponent implements OnInit {
   displayFilterModal: boolean = false;
 
   constructor(private filtersService: FiltersService,
+              private filterOptionsService: FilterOptionsService,
               private loaderService: LoaderService) {
   }
 

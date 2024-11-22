@@ -7,4 +7,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class DateCondition extends Condition {
 
+  private String conditionType = "DateCondition";
+
 }
