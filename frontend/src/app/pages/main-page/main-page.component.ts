@@ -38,7 +38,7 @@ export class MainPageComponent implements OnInit {
 
   readonly properties: string[] = ['name'];
   filters: Filter[] = [];
-  selectedFilter!: Filter;
+  selectedFilter?: Filter;
   filterOptions!: FilterOptions;
 
   displayFilterModal: boolean = false;
@@ -59,7 +59,12 @@ export class MainPageComponent implements OnInit {
     this.displayFilterModal = true;
   }
 
-  loadFilters(): void {
+  onAddFilterClicked(): void {
+    this.displayFilterModal = true;
+    this.selectedFilter = undefined;
+  }
+
+  private loadFilters(): void {
     this.loaderService.setLoading(true);
     this.filtersService.getFilters().pipe(
       tap((filters: Filter[]) => {
@@ -69,7 +74,7 @@ export class MainPageComponent implements OnInit {
     ).subscribe();
   }
 
-  loadFilterOptions(): void {
+  private loadFilterOptions(): void {
     this.filterOptionsService.getFilterOptions().pipe(
       tap((filterOptions: FilterOptions) => {
         filterOptions.criteriaConditions = new Map(Object.entries(filterOptions.criteriaConditions));

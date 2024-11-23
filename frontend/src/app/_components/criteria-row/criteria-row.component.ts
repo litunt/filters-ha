@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NgIf, NgSwitch, NgSwitchCase, NgTemplateOutlet} from "@angular/common";
 import {Criteria} from "../../_models/criteria";
 import {DropdownModule} from "primeng/dropdown";
@@ -12,8 +12,8 @@ import {CriteriaAmount} from "../../_models/criteriaAmount";
 import {CriteriaTitle} from "../../_models/criteriaTitle";
 import {CriteriaDate} from "../../_models/criteriaDate";
 import {CalendarModule} from "primeng/calendar";
-import {AppModule} from "../../app.module";
 import {DatePipe} from "../../_util/datePipe";
+import {NumberInputComponent} from "../number-input/number-input.component";
 
 @Component({
   selector: 'criteria-row',
@@ -29,7 +29,8 @@ import {DatePipe} from "../../_util/datePipe";
     ReactiveFormsModule,
     ChipsModule,
     CalendarModule,
-    DatePipe
+    DatePipe,
+    NumberInputComponent
   ],
   templateUrl: './criteria-row.component.html',
   styleUrl: './criteria-row.component.css'
@@ -66,6 +67,10 @@ export class CriteriaRowComponent implements OnInit {
         selectedValue: new FormControl<number | string | Date>(0)
       });
     }
+  }
+
+  getFormControlByName(name: string): FormControl {
+    return this.criteriaForm.get(name) as FormControl;
   }
 
   private mapConditionsByType(): void {

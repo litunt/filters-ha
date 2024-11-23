@@ -22,7 +22,7 @@ export class ModalDialogComponent {
   isEditMode: boolean = false;
 
   @Input() body: TemplateRef<Element> | null = null;
-  @Input() filter!: Filter;
+  @Input() filter?: Filter;
   @Output() editModeChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() set editMode(value: boolean) {
     this.isEditMode = value;
@@ -34,6 +34,7 @@ export class ModalDialogComponent {
 
   closeModal(): void {
     this.display = false;
+    this.filter = undefined;
     this.displayModalChange.emit(false);
     this.onEditMode(false);
   }

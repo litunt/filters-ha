@@ -1,17 +1,16 @@
-<p-dialog *ngIf="filter"
-          [header]="filter.name"
+<p-dialog [header]="filter?.name || 'Filter'"
           [modal]="true"
           [draggable]="false"
           [(visible)]="display"
           (onHide)="closeModal()"
-          [style]="{ minWidth: '50rem', minHeight: '30rem' }">
+          [style]="{ maxWidth: '50rem', maxHeight: '30rem' }">
   <ng-container *ngTemplateOutlet="body"></ng-container>
   <ng-template pTemplate="footer">
-    <div *ngIf="isEditMode" >
+    <div *ngIf="isEditMode || !filter" >
       <p-button styleClass="secondary-button" label="Close" (onClick)="closeModal()" />
       <p-button styleClass="success-button" label="Save" (onClick)="closeModal()" />
     </div>
-    <div *ngIf="!isEditMode" class="flex justify-content-start gap-2">
+    <div *ngIf="!isEditMode && filter" class="flex justify-content-start gap-2">
       <p-button styleClass="secondary-button" label="Edit" (onClick)="onEditMode(true)" />
     </div>
   </ng-template>

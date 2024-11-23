@@ -5,7 +5,7 @@
         [options]="criteriaTypes"
         [formControlName]="'selectedType'"
         [optionLabel]="'title'"
-        [placeholder]="criteriaForm.get('selectedType')?.value!.title"/>
+        [placeholder]="getFormControlByName('selectedType').value!.title"/>
     </div>
     <div *ngIf="!criteria" class="col-8">
       <ng-container *ngTemplateOutlet="criteriaAmount"></ng-container>
@@ -25,17 +25,17 @@
       <div class="col-4">
         <input pInputText readonly
                type="text"
-               [value]="criteriaForm.get('selectedType')?.value!.title" />
+               [value]="getFormControlByName('selectedType').value!.title" />
       </div>
       <div class="col-4">
         <input pInputText readonly
                type="text"
-               [value]="criteriaForm.get('selectedCondition')?.value!.title" />
+               [value]="getFormControlByName('selectedCondition').value!.title" />
       </div>
       <div class="col-4">
         <input pInputText readonly
                type="text"
-               [value]="criteriaForm.get('selectedValue')?.value | datePipe " />
+               [value]="getFormControlByName('selectedValue').value | datePipe " />
       </div>
     </ng-container>
   </div>
@@ -44,20 +44,14 @@
 <ng-template #criteriaAmount>
   <div class="grid" [formGroup]="criteriaForm">
     <div class="col-6">
-      <p-dropdown *ngIf="editMode"
-        [style]="{ width: 'auto' }"
-        [options]="amountConditions"
-        [formControlName]="'selectedCondition'"
-        [optionLabel]="'title'"
-        [placeholder]="criteriaForm.get('selectedCondition')?.value!.title"/>
+      <p-dropdown [style]="{ width: 'auto' }"
+                  [options]="amountConditions"
+                  [formControlName]="'selectedCondition'"
+                  [optionLabel]="'title'"
+                  [placeholder]="getFormControlByName('selectedCondition').value!.title"/>
     </div>
     <div class="col-6">
-      <p-inputNumber
-        mode="decimal"
-        [showButtons]="true"
-        [formControlName]="'selectedValue'"
-        [min]="0"
-        [max]="100"/>
+      <number-input [control]="getFormControlByName('selectedValue')"/>
     </div>
   </div>
 </ng-template>
@@ -65,12 +59,11 @@
 <ng-template #criteriaTitle>
   <div class="grid" [formGroup]="criteriaForm">
     <div class="col-6">
-      <p-dropdown *ngIf="editMode"
-                  [style]="{ width: 'auto' }"
+      <p-dropdown [style]="{ width: 'auto' }"
                   [options]="textConditions"
                   [formControlName]="'selectedCondition'"
                   [optionLabel]="'title'"
-                  [placeholder]="criteriaForm.get('selectedCondition')?.value!.title"/>
+                  [placeholder]="getFormControlByName('selectedCondition').value!.title"/>
     </div>
     <div class="col-6">
       <input pInputText
@@ -82,19 +75,17 @@
 <ng-template #criteriaDate>
   <div class="grid" [formGroup]="criteriaForm">
     <div class="col-6">
-      <p-dropdown *ngIf="editMode"
-                  [style]="{ width: 'auto' }"
+      <p-dropdown [style]="{ width: 'auto' }"
                   [options]="dateConditions"
                   [formControlName]="'selectedCondition'"
                   [optionLabel]="'title'"
-                  [placeholder]="criteriaForm.get('selectedCondition')?.value!.title"/>
+                  [placeholder]="getFormControlByName('selectedCondition').value!.title"/>
     </div>
     <div class="col-6">
-      <div class="card flex justify-content-center">
-        <p-calendar [formControlName]="'selectedValue'"
-                    [showIcon]="true"
-                    [dateFormat]="'dd.mm.yy'"/>
-      </div>
+      <p-calendar class="modal-calendar"
+                  [formControlName]="'selectedValue'"
+                  [showIcon]="true"
+                  [dateFormat]="'dd.mm.yy'"/>
     </div>
   </div>
 </ng-template>

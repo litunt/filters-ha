@@ -1,5 +1,5 @@
 <div class="grid">
-  <ng-container *ngIf="isEditMode">
+  <ng-container *ngIf="isEditMode || !filter">
     <div class="col-2">
       <b>Filter name</b>
     </div>
@@ -11,10 +11,15 @@
   <div class="col-2">
     <b>Criteria</b>
   </div>
-  <div class="col-10">
+  <div class="col-10" *ngIf="filter">
     <criteria-row *ngFor="let criteria of filter?.criteriaList"
                   [criteriaConditions]="criteriaConditions"
                   [criteria]="criteria"
+                  [editMode]="isEditMode">
+    </criteria-row>
+  </div>
+  <div class="col-10" *ngIf="!filter">
+    <criteria-row [criteriaConditions]="criteriaConditions"
                   [editMode]="isEditMode">
     </criteria-row>
   </div>
