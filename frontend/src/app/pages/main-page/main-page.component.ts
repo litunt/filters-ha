@@ -39,7 +39,7 @@ export class MainPageComponent implements OnInit {
   readonly properties: string[] = ['name'];
   filters: Filter[] = [];
   selectedFilter?: Filter;
-  filterOptions!: FilterOptions;
+  filterOptions?: FilterOptions;
 
   displayFilterModal: boolean = false;
   isEditMode: boolean = false;
@@ -57,11 +57,13 @@ export class MainPageComponent implements OnInit {
   onFilterSelected(filter: Filter): void {
     this.selectedFilter = filter;
     this.displayFilterModal = true;
+    this.isEditMode = false;
   }
 
   onAddFilterClicked(): void {
-    this.displayFilterModal = true;
     this.selectedFilter = undefined;
+    this.displayFilterModal = true;
+    this.isEditMode = true;
   }
 
   private loadFilters(): void {

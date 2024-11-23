@@ -1,16 +1,13 @@
 <form [formGroup]="criteriaForm">
   <div class="grid">
-    <div *ngIf="criteria && editMode || !criteria" class="col-4">
+    <div *ngIf="editMode" class="col-4">
       <p-dropdown
         [options]="criteriaTypes"
         [formControlName]="'selectedType'"
         [optionLabel]="'title'"
         [placeholder]="getFormControlByName('selectedType').value!.title"/>
     </div>
-    <div *ngIf="!criteria" class="col-8">
-      <ng-container *ngTemplateOutlet="criteriaAmount"></ng-container>
-    </div>
-    <div *ngIf="criteria && editMode" class="col-8" [ngSwitch]="criteria.type">
+    <div *ngIf="editMode" class="col-8" [ngSwitch]="getFormControlByName('selectedType').value!.type">
       <div *ngSwitchCase="'AMOUNT'">
         <ng-container *ngTemplateOutlet="criteriaAmount"></ng-container>
       </div>
@@ -21,7 +18,7 @@
         <ng-container *ngTemplateOutlet="criteriaDate"></ng-container>
       </div>
     </div>
-    <ng-container *ngIf="criteria && !editMode">
+    <ng-container *ngIf="!editMode">
       <div class="col-4">
         <input pInputText readonly
                type="text"

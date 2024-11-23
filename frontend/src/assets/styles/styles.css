@@ -77,3 +77,7 @@ a:hover {
 p-dropdown {
   display: grid;
 }
+
+.p-dropdown .p-dropdown-label.p-placeholder {
+  color: #043d75;
+}

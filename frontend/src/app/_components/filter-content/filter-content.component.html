@@ -1,33 +1,34 @@
-<div class="grid">
-  <ng-container *ngIf="isEditMode || !filter">
+<form [formGroup]="filterForm">
+  <div class="grid">
+    <ng-container *ngIf="isEditMode || !filter">
+      <div class="col-2">
+        <b>Filter name</b>
+      </div>
+      <div class="col-10">
+        <input pInputText
+               [value]="filter?.name"/>
+      </div>
+    </ng-container>
     <div class="col-2">
-      <b>Filter name</b>
+      <b>Criteria</b>
+    </div>
+    <div class="col-10" *ngIf="filter">
+      <criteria-row *ngFor="let _ of criteriaList.controls; let i = index"
+                    [criteriaForm]="getCriteriaForm(i)"
+                    [editMode]="isEditMode">
+      </criteria-row>
+    </div>
+    <div class="col-10" *ngIf="!filter">
+      <criteria-row [criteriaForm]="getCriteriaForm(0)"
+                    [editMode]="isEditMode">
+      </criteria-row>
+    </div>
+    <div class="col-2">
+      <b>Selection</b>
     </div>
     <div class="col-10">
-      <input pInputText
-             [value]="filter?.name"/>
+      <radio-button-group [selections]="selections"
+                          [selected]="filter?.selection"/>
     </div>
-  </ng-container>
-  <div class="col-2">
-    <b>Criteria</b>
   </div>
-  <div class="col-10" *ngIf="filter">
-    <criteria-row *ngFor="let criteria of filter?.criteriaList"
-                  [criteriaConditions]="criteriaConditions"
-                  [criteria]="criteria"
-                  [editMode]="isEditMode">
-    </criteria-row>
-  </div>
-  <div class="col-10" *ngIf="!filter">
-    <criteria-row [criteriaConditions]="criteriaConditions"
-                  [editMode]="isEditMode">
-    </criteria-row>
-  </div>
-  <div class="col-2">
-    <b>Selection</b>
-  </div>
-  <div class="col-10">
-    <radio-button-group [selections]="selections"
-                            [selected]="filter?.selection"/>
-  </div>
-</div>
+</form>

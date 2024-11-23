@@ -26,7 +26,7 @@
 
 <ng-template #modalContent>
   <filter-content [isEditMode]="isEditMode"
-                      [filter]="selectedFilter"
-                      [selections]="filterOptions.selections"
-                      [criteriaConditions]="filterOptions.criteriaConditions"/>
+                  [filter]="selectedFilter"
+                  [selections]="filterOptions!.selections"
+                  [criteriaConditions]="filterOptions!.criteriaConditions"/>
 </ng-template>
