@@ -1,9 +1,9 @@
-<p-dialog [header]="filter?.name || 'Filter'"
+<p-dialog [header]="!isEditMode ? filter?.name : 'Filter'"
           [modal]="true"
           [draggable]="false"
           [(visible)]="display"
           (onHide)="closeModal()"
-          [style]="{ maxWidth: '50rem', maxHeight: '30rem' }">
+          [resizable]="true">
   <ng-container *ngTemplateOutlet="body"></ng-container>
   <ng-template pTemplate="footer">
     <div *ngIf="isEditMode" >

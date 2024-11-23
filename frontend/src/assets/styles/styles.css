@@ -81,3 +81,23 @@ p-dropdown {
 .p-dropdown .p-dropdown-label.p-placeholder {
   color: #043d75;
 }
+
+.p-dialog-resizable {
+  resize: vertical;
+}
+
+.p-dialog .p-resizable-handle {
+  cursor: row-resize;
+}
+
+.p-dialog {
+  max-height: 60vw;
+  min-width: 20vw;
+  overflow: hidden;
+}
+
+.p-dialog .p-dialog-content {
+  max-height: 60vw;
+  min-width: 20vw;
+  overflow: auto;
+}
