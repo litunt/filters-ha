@@ -1,4 +1,4 @@
-import {CriteriaTypeEnum} from "./enums/criteriaType.enum";
+import {CriteriaTypeEnum} from "../enums/criteriaType.enum";
 
 export interface CriteriaType {
   title: string;

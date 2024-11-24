@@ -16,8 +16,7 @@ import {FilterOptions} from "../../_models/filterOptions";
     JsonPipe,
     FormsModule
   ],
-  templateUrl: './radio-button-group.component.html',
-  styleUrl: './radio-button-group.component.css'
+  templateUrl: './radio-button-group.component.html'
 })
 export class RadioButtonGroupComponent implements OnChanges {
 

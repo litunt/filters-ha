@@ -1,5 +1,5 @@
 import {Selection} from "./selection";
-import {Criteria} from "./criteria";
+import {Criteria} from "./criteria/criteria";
 
 export interface Filter {
   id?: number;

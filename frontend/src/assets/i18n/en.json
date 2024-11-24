@@ -1,3 +1,4 @@
 {
-
+  "criteria.remove.error": "Cannot remove criteria!",
+  "criteria.remove.error.description": "Filter must contain at least one criteria row."
 }

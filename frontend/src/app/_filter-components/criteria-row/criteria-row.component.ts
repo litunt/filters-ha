@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {NgIf, NgSwitch, NgSwitchCase, NgTemplateOutlet} from "@angular/common";
 import {DropdownModule} from "primeng/dropdown";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -27,10 +27,9 @@ import {criteriaTypes} from "../../_util/constants";
     DatePipe,
     NumberInputComponent
   ],
-  templateUrl: './criteria-row.component.html',
-  styleUrl: './criteria-row.component.css'
+  templateUrl: './criteria-row.component.html'
 })
-export class CriteriaRowComponent implements OnChanges{
+export class CriteriaRowComponent {
 
   @Input() criteriaForm!: FormGroup;
   @Input() editMode: boolean = false;
@@ -41,8 +40,4 @@ export class CriteriaRowComponent implements OnChanges{
   }
 
   protected readonly criteriaTypes = criteriaTypes;
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
-  }
 }

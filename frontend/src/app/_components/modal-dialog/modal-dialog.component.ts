@@ -13,8 +13,7 @@ import {Button} from "primeng/button";
     Button,
     NgIf
   ],
-  templateUrl: './modal-dialog.component.html',
-  styleUrl: './modal-dialog.component.css'
+  templateUrl: './modal-dialog.component.html'
 })
 export class ModalDialogComponent {
 

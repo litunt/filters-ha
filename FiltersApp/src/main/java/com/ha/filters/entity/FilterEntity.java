@@ -1,5 +1,6 @@
 package com.ha.filters.entity;
 
+import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 
@@ -37,7 +38,7 @@ public class FilterEntity {
   @JoinColumn(name = "selection_id", referencedColumnName = "id")
   private SelectionEntity selection;
 
-  @OneToMany(mappedBy = "filter")
+  @OneToMany(mappedBy = "filter", cascade = ALL, orphanRemoval = true)
   @OnDelete(action = CASCADE)
   private List<CriteriaEntity> criteriaList;
 

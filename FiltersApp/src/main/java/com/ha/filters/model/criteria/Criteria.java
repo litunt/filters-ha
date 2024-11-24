@@ -1,5 +1,6 @@
 package com.ha.filters.model.criteria;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ha.filters.enums.CriteriaType;
@@ -20,4 +21,9 @@ public abstract class Criteria {
   private Long id;
 
   private CriteriaType type;
+
+  @JsonCreator
+  public static CriteriaType fromString(String value) {
+    return CriteriaType.valueOf(value.toUpperCase());
+  }
 }

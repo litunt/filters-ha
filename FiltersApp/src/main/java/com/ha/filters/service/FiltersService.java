@@ -21,6 +21,7 @@ public class FiltersService {
 
   public Filter saveFilter(Filter updatedFilter) {
     FilterEntity entity = filtersMapper.toEntity(updatedFilter);
+    entity.getCriteriaList().forEach(criteriaEntity -> criteriaEntity.setFilter(entity));
     return filtersMapper.toDomain(filtersRepository.save(entity));
   }
 

@@ -1,5 +1,5 @@
 import {CriteriaTypeEnum} from "../_models/enums/criteriaType.enum";
-import {CriteriaType} from "../_models/criteriaType";
+import {CriteriaType} from "../_models/criteria/criteriaType";
 
 export const criteriaTypes: CriteriaType[] = [
   { title: 'Amount', type: CriteriaTypeEnum.AMOUNT },

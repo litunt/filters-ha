@@ -1,10 +1,15 @@
 package com.ha.filters.mapper;
 
+import static com.ha.filters.enums.CriteriaType.AMOUNT;
+import static com.ha.filters.enums.CriteriaType.DATE;
+import static com.ha.filters.enums.CriteriaType.TITLE;
+
 import com.ha.filters.config.MapStructConfig;
 import com.ha.filters.entity.criteria.CriteriaAmountEntity;
 import com.ha.filters.entity.criteria.CriteriaDateEntity;
 import com.ha.filters.entity.criteria.CriteriaEntity;
 import com.ha.filters.entity.criteria.CriteriaTitleEntity;
+import com.ha.filters.enums.CriteriaType;
 import com.ha.filters.model.criteria.Criteria;
 import com.ha.filters.model.criteria.CriteriaAmount;
 import com.ha.filters.model.criteria.CriteriaDate;
@@ -36,10 +41,13 @@ public interface CriteriaMapper {
   @Named("mapToCriteriaEntityByType")
   default CriteriaEntity mapToCriteriaEntityByType(Criteria domain) {
     if (domain instanceof CriteriaAmount criteriaAmount) {
+      criteriaAmount.setType(AMOUNT);
       return toCriteriaAmountEntity(criteriaAmount);
     } else if (domain instanceof CriteriaTitle criteriaTitle) {
+      criteriaTitle.setType(TITLE);
       return toCriteriaTitleEntity(criteriaTitle);
     } else if (domain instanceof CriteriaDate criteriaDate) {
+      criteriaDate.setType(DATE);
       return toCriteriaDataEntity(criteriaDate);
     }
     return null;

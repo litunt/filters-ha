@@ -21,7 +21,7 @@
           </criteria-row>
         </div>
         <div *ngIf="isEditMode" class="col-1">
-          <p-button styleClass="action-button" icon="pi pi-minus" />
+          <p-button styleClass="action-button" icon="pi pi-minus" (click)="removeCriteriaRow(i)" />
         </div>
       </div>
     </div>
