@@ -16,6 +16,8 @@ import {Criteria} from "../../_models/criteria";
 import {Button} from "primeng/button";
 import {CriteriaType} from "../../_models/criteriaType";
 import {criteriaTypes} from "../../_util/constants";
+import {SharedDataService} from "../../_services/sharedData.service";
+import {FilterOptions} from "../../_models/filterOptions";
 
 @Component({
   selector: 'filter-content',
@@ -36,21 +38,22 @@ import {criteriaTypes} from "../../_util/constants";
 export class FilterContentComponent implements OnChanges {
 
   @Input() isEditMode: boolean = false;
-  @Input() criteriaConditions?: Map<string, Condition[]>;
-  @Input() selections: Selection[] = [];
   @Input() filter?: Filter;
 
   @Output() filterValueChange: EventEmitter<Filter> = new EventEmitter<Filter>();
 
-  amountConditions: Condition[] = [];
-  textConditions: Condition[] = [];
-  dateConditions: Condition[] = [];
+  private amountConditions: Condition[] = [];
+  private textConditions: Condition[] = [];
+  private dateConditions: Condition[] = [];
 
   filterForm: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder) {
-    this.mapConditionsByType();
-    this.filterForm = this.buildFormGroup();
+  constructor(private formBuilder: FormBuilder,
+              private sharedDataService: SharedDataService) {
+    this.sharedDataService.filterOptions$.subscribe((options: FilterOptions) => {
+      this.mapConditionsByType(options.criteriaConditions);
+      this.filterForm = this.buildFormGroup();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -61,7 +64,6 @@ export class FilterContentComponent implements OnChanges {
 
   public onSaveRequested(isSaved: boolean): void {
     if (isSaved) {
-      console.log(this.filterForm)
       let updatedFilter = this.createFilterFromForm();
       if (this.isExistingFilter) {
         updatedFilter.id = this.filter?.id;
@@ -138,7 +140,7 @@ export class FilterContentComponent implements OnChanges {
   private initDefaultCriteria(): void {
     const criteriaGroup = this.formBuilder.group({
       selectedType: new FormControl<CriteriaType>({ title: 'Amount', type: CriteriaTypeEnum.AMOUNT }),
-      selectedCondition: new FormControl<Condition>( this.criteriaConditions?.get(ConditionTypeEnum.AmountCondition)![0]! ),
+      selectedCondition: new FormControl<Condition>( this.amountConditions[0]! ),
       selectedValue: new FormControl<number | string | Date>(0)
     });
     this.criteriaList.push(criteriaGroup);
@@ -183,10 +185,10 @@ export class FilterContentComponent implements OnChanges {
     return criteriaList;
   }
 
-  private mapConditionsByType(): void {
-    this.amountConditions = this.criteriaConditions?.get(ConditionTypeEnum.AmountCondition)!;
-    this.textConditions = this.criteriaConditions?.get(ConditionTypeEnum.TextCondition)!;
-    this.dateConditions = this.criteriaConditions?.get(ConditionTypeEnum.DateCondition)!;
+  private mapConditionsByType(conditions: Map<string, Condition[]>): void {
+    this.amountConditions = conditions.get(ConditionTypeEnum.AmountCondition)!;
+    this.textConditions = conditions.get(ConditionTypeEnum.TextCondition)!;
+    this.dateConditions = conditions.get(ConditionTypeEnum.DateCondition)!;
   }
 
   private getCriteriaValue(criteria: Criteria): number | string | Date {

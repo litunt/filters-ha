@@ -15,6 +15,7 @@ import {FilterOptionsService} from "../../_services/filterOptions.service";
 import {FilterOptions} from "../../_models/filterOptions";
 import {InputTextModule} from "primeng/inputtext";
 import {FilterContentComponent} from "../../_filter-components/filter-content/filter-content.component";
+import {SharedDataService} from "../../_services/sharedData.service";
 
 @Component({
   selector: 'app-main-page',
@@ -40,12 +41,13 @@ export class MainPageComponent implements OnInit {
   @ViewChild('filterContent') filterContent!: FilterContentComponent;
   filters: Filter[] = [];
   selectedFilter?: Filter;
-  filterOptions?: FilterOptions;
+  //filterOptions?: FilterOptions;
 
   displayFilterModal: boolean = false;
   isEditMode: boolean = false;
 
   constructor(private filtersService: FiltersService,
+              private sharedDataService: SharedDataService,
               private filterOptionsService: FilterOptionsService,
               private loaderService: LoaderService) {
   }
@@ -99,7 +101,8 @@ export class MainPageComponent implements OnInit {
     this.filterOptionsService.getFilterOptions().pipe(
       tap((filterOptions: FilterOptions) => {
         filterOptions.criteriaConditions = new Map(Object.entries(filterOptions.criteriaConditions));
-        this.filterOptions = filterOptions;
+        this.sharedDataService.updateData(filterOptions)
+        //this.filterOptions = filterOptions;
       })
     ).subscribe();
   }

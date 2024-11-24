@@ -29,8 +29,7 @@
       <b>Selection</b>
     </div>
     <div class="col-10" *ngIf="isEditMode">
-      <radio-button-group [selections]="selections"
-                          [selected]="filter?.selection"
+      <radio-button-group [selected]="filter?.selection"
                           [selectionControl]="getSelectionControl"/>
     </div>
     <div class="col-10" *ngIf="!isEditMode">

@@ -27,10 +27,8 @@
 </modal-dialog>
 
 <ng-template #modalContent>
-  <filter-content #filterContent *ngIf="filterOptions"
+  <filter-content #filterContent
                   [isEditMode]="isEditMode"
                   [filter]="selectedFilter"
-                  (filterValueChange)="onFilterSaved($event)"
-                  [selections]="filterOptions!.selections"
-                  [criteriaConditions]="filterOptions!.criteriaConditions"/>
+                  (filterValueChange)="onFilterSaved($event)"/>
 </ng-template>

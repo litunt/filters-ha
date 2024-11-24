@@ -1,8 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {NgIf, NgSwitch, NgSwitchCase, NgTemplateOutlet} from "@angular/common";
 import {DropdownModule} from "primeng/dropdown";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {CriteriaTypeEnum} from "../../_models/enums/criteriaType.enum";
 import {PaginatorModule} from "primeng/paginator";
 import {ChipsModule} from "primeng/chips";
 import {Condition} from "../../_models/condition";
@@ -31,15 +30,19 @@ import {criteriaTypes} from "../../_util/constants";
   templateUrl: './criteria-row.component.html',
   styleUrl: './criteria-row.component.css'
 })
-export class CriteriaRowComponent {
+export class CriteriaRowComponent implements OnChanges{
 
   @Input() criteriaForm!: FormGroup;
   @Input() editMode: boolean = false;
-  @Input() conditions: Condition[] = [];
+  @Input() conditions?: Condition[];
 
   getFormControlByName(name: string): FormControl {
     return this.criteriaForm && this.criteriaForm.get(name) as FormControl;
   }
 
   protected readonly criteriaTypes = criteriaTypes;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes)
+  }
 }
