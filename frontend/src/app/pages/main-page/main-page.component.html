@@ -19,14 +19,18 @@
   <div class="col-2"></div>
 </div>
 <modal-dialog [body]="modalContent"
-              [filter]="selectedFilter"
+              (onFilterSaved)="filterContent.onSaveRequested($event)"
+              [filterName]= "selectedFilter?.name"
               [(displayModal)]="displayFilterModal"
+              (displayModalChange)="onModalClosed()"
               [(editMode)]="isEditMode">
 </modal-dialog>
 
 <ng-template #modalContent>
-  <filter-content [isEditMode]="isEditMode"
+  <filter-content #filterContent *ngIf="filterOptions"
+                  [isEditMode]="isEditMode"
                   [filter]="selectedFilter"
+                  (filterValueChange)="onFilterSaved($event)"
                   [selections]="filterOptions!.selections"
                   [criteriaConditions]="filterOptions!.criteriaConditions"/>
 </ng-template>

@@ -1,7 +1,6 @@
-import {Component, EventEmitter, Input, Output, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef} from '@angular/core';
 import {DialogModule} from "primeng/dialog";
-import {NgIf, NgTemplateOutlet} from "@angular/common";
-import {Filter} from "../../_models/filter";
+import {CommonModule, NgIf, NgTemplateOutlet} from "@angular/common";
 import {Button} from "primeng/button";
 
 @Component({
@@ -10,6 +9,7 @@ import {Button} from "primeng/button";
   imports: [
     DialogModule,
     NgTemplateOutlet,
+    CommonModule,
     Button,
     NgIf
   ],
@@ -18,29 +18,36 @@ import {Button} from "primeng/button";
 })
 export class ModalDialogComponent {
 
-  display: boolean = false;
   isEditMode: boolean = false;
 
   @Input() body: TemplateRef<Element> | null = null;
-  @Input() filter?: Filter;
+  @Input() filterName?: string;
+  @Output() onFilterSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() editModeChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() set editMode(value: boolean) {
     this.isEditMode = value;
   }
   @Output() displayModalChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() set displayModal(value: boolean) {
-    this.display = value;
-  }
+  @Input() displayModal: boolean = false;
 
-  closeModal(): void {
-    this.display = false;
-    this.filter = undefined;
-    this.displayModalChange.emit(false);
-    this.onEditMode(false);
+  closeModal(toSave: boolean): void {
+    if (toSave) {
+      this.onFilterSaved.emit(true);
+    } else {
+      this.onFilterSaved.emit(false);
+    }
+    this.close();
   }
 
   onEditMode(isEdit: boolean): void {
     this.isEditMode = isEdit;
     this.editModeChange.emit(isEdit);
+  }
+
+  private close(): void {
+    this.displayModal = false;
+    this.filterName = "";
+    this.displayModalChange.emit(false);
+    this.onEditMode(false);
   }
 }

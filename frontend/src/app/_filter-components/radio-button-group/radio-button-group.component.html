@@ -1,0 +1,9 @@
+<div class="flex flex-wrap gap-3">
+  <div *ngFor="let selection of selections" class="field-checkbox">
+    <p-radioButton
+      [value]="selection"
+      [inputId]="selection.id + selection.title"
+      [formControl]="selectionControl"
+      [label]="selection.title"/>
+  </div>
+</div>

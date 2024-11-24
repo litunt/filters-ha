@@ -13,4 +13,19 @@ export class FiltersService {
   public getFilters(): Observable<Filter[]> {
     return this.http.get<Filter[]>('/api/filters');
   }
+
+  public saveFilter(filter: Filter): Observable<Filter> {
+    if (filter.id) {
+      return this.updateFilter(filter);
+    }
+    return this.createFilter(filter);
+  }
+
+  private updateFilter(filter: Filter): Observable<Filter> {
+    return this.http.put<Filter>(`/api/filters/${filter.id}`, filter);
+  }
+
+  private createFilter(filter: Filter): Observable<Filter> {
+    return this.http.post<Filter>(`/api/filters`, filter);
+  }
 }

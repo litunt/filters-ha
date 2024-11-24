@@ -8,7 +8,8 @@ import {ChipsModule} from "primeng/chips";
 import {Condition} from "../../_models/condition";
 import {CalendarModule} from "primeng/calendar";
 import {DatePipe} from "../../_util/datePipe";
-import {NumberInputComponent} from "../number-input/number-input.component";
+import {NumberInputComponent} from "../../_components/number-input/number-input.component";
+import {criteriaTypes} from "../../_util/constants";
 
 @Component({
   selector: 'criteria-row',
@@ -32,25 +33,13 @@ import {NumberInputComponent} from "../number-input/number-input.component";
 })
 export class CriteriaRowComponent {
 
-  readonly criteriaTypes: CriteriaType[] = [
-    { title: 'Amount', type: CriteriaTypeEnum.AMOUNT },
-    { title: 'Title', type: CriteriaTypeEnum.TITLE },
-    { title: 'Date', type: CriteriaTypeEnum.DATE }
-  ];
-  amountConditions: Condition[] = [];
-  textConditions: Condition[] = [];
-  dateConditions: Condition[] = [];
-
   @Input() criteriaForm!: FormGroup;
   @Input() editMode: boolean = false;
+  @Input() conditions: Condition[] = [];
 
   getFormControlByName(name: string): FormControl {
     return this.criteriaForm && this.criteriaForm.get(name) as FormControl;
   }
 
-}
-
-interface CriteriaType {
-  title: string;
-  type: CriteriaTypeEnum;
+  protected readonly criteriaTypes = criteriaTypes;
 }

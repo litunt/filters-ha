@@ -2,8 +2,8 @@ import {Selection} from "./selection";
 import {Criteria} from "./criteria";
 
 export interface Filter {
-  id: number;
+  id?: number;
   name: string;
-  selection: Selection;
+  selection?: Selection;
   criteriaList: Criteria[]
 }

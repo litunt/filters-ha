@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoaderService} from "../../_services/loader/loader.service";
 import {FiltersService} from "../../_services/filters.service";
 import {tap} from "rxjs";
@@ -9,12 +9,12 @@ import {InputSwitchModule} from "primeng/inputswitch";
 import {FormsModule} from "@angular/forms";
 import {DataTableComponent} from "../../_components/data-table/data-table.component";
 import {ModalDialogComponent} from "../../_components/modal-dialog/modal-dialog.component";
-import {CriteriaRowComponent} from "../../_components/criteria-row/criteria-row.component";
+import {CriteriaRowComponent} from "../../_filter-components/criteria-row/criteria-row.component";
 import {NgForOf, NgIf} from "@angular/common";
 import {FilterOptionsService} from "../../_services/filterOptions.service";
 import {FilterOptions} from "../../_models/filterOptions";
 import {InputTextModule} from "primeng/inputtext";
-import {FilterContentComponent} from "../../_components/filter-content/filter-content.component";
+import {FilterContentComponent} from "../../_filter-components/filter-content/filter-content.component";
 
 @Component({
   selector: 'app-main-page',
@@ -37,6 +37,7 @@ import {FilterContentComponent} from "../../_components/filter-content/filter-co
 export class MainPageComponent implements OnInit {
 
   readonly properties: string[] = ['name'];
+  @ViewChild('filterContent') filterContent!: FilterContentComponent;
   filters: Filter[] = [];
   selectedFilter?: Filter;
   filterOptions?: FilterOptions;
@@ -61,9 +62,26 @@ export class MainPageComponent implements OnInit {
   }
 
   onAddFilterClicked(): void {
-    this.selectedFilter = undefined;
     this.displayFilterModal = true;
     this.isEditMode = true;
+  }
+
+  onModalClosed(): void {
+    this.selectedFilter = undefined;
+    this.displayFilterModal = false;
+    this.isEditMode = false;
+  }
+
+  onFilterSaved(filter: Filter): void {
+    this.loaderService.setLoading(true);
+    this.filtersService.saveFilter(filter).pipe(
+      tap((newFilter: Filter) => {
+        this.filters = this.filters.filter((f: Filter) => f.id !== newFilter.id);
+        this.filters.push(newFilter);
+        this.filters.sort((f1, f2) => f1.id! - f2.id!);
+        this.loaderService.setLoading(false);
+      })
+    ).subscribe();
   }
 
   private loadFilters(): void {
@@ -72,6 +90,7 @@ export class MainPageComponent implements OnInit {
       tap((filters: Filter[]) => {
         this.loaderService.setLoading(false);
         this.filters = filters;
+        this.filters.sort((f1, f2) => f1.id! - f2.id!);
       })
     ).subscribe();
   }

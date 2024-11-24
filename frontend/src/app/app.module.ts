@@ -20,6 +20,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PaginatorModule} from "primeng/paginator";
 import {ChipsModule} from "primeng/chips";
 import {CalendarModule} from "primeng/calendar";
+import {ButtonModule} from "primeng/button";
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {CalendarModule} from "primeng/calendar";
     ReactiveFormsModule,
     ChipsModule,
     CalendarModule,
-    DatePipe
+    DatePipe,
+    ButtonModule
   ],
   providers: [
     MessageService,

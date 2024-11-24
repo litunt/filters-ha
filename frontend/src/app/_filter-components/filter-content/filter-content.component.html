@@ -1,0 +1,41 @@
+<form [formGroup]="filterForm">
+  <div class="grid">
+    <ng-container *ngIf="isEditMode">
+      <div class="col-2">
+        <b>Filter name</b>
+      </div>
+      <div class="col-10">
+        <input pInputText type="text"
+               [formControlName]="'filterName'"/>
+      </div>
+    </ng-container>
+    <div class="col-2">
+      <b>Criteria</b>
+    </div>
+    <div class="col-10">
+      <div *ngFor="let _ of criteriaList.controls; let i = index" class="grid">
+        <div class="col-11">
+          <criteria-row [criteriaForm]="getCriteriaForm(i)"
+                        [conditions]="getConditionsByCriteriaType(i)"
+                        [editMode]="isEditMode">
+          </criteria-row>
+        </div>
+        <div *ngIf="isEditMode" class="col-1">
+          <p-button styleClass="action-button" icon="pi pi-minus" />
+        </div>
+      </div>
+    </div>
+    <div class="col-2">
+      <b>Selection</b>
+    </div>
+    <div class="col-10" *ngIf="isEditMode">
+      <radio-button-group [selections]="selections"
+                          [selected]="filter?.selection"
+                          [selectionControl]="getSelectionControl"/>
+    </div>
+    <div class="col-10" *ngIf="!isEditMode">
+      <input pInputText type="text" readonly
+             [value]="getSelectionControl.value?.title"/>
+    </div>
+  </div>
+</form>

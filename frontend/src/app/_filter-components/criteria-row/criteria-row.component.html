@@ -42,7 +42,7 @@
   <div class="grid" [formGroup]="criteriaForm">
     <div class="col-6">
       <p-dropdown [style]="{ width: 'auto' }"
-                  [options]="amountConditions"
+                  [options]="conditions"
                   [formControlName]="'selectedCondition'"
                   [optionLabel]="'title'"
                   [placeholder]="getFormControlByName('selectedCondition').value!.title"/>
@@ -57,7 +57,7 @@
   <div class="grid" [formGroup]="criteriaForm">
     <div class="col-6">
       <p-dropdown [style]="{ width: 'auto' }"
-                  [options]="textConditions"
+                  [options]="conditions"
                   [formControlName]="'selectedCondition'"
                   [optionLabel]="'title'"
                   [placeholder]="getFormControlByName('selectedCondition').value!.title"/>
@@ -73,14 +73,13 @@
   <div class="grid" [formGroup]="criteriaForm">
     <div class="col-6">
       <p-dropdown [style]="{ width: 'auto' }"
-                  [options]="dateConditions"
+                  [options]="conditions"
                   [formControlName]="'selectedCondition'"
                   [optionLabel]="'title'"
                   [placeholder]="getFormControlByName('selectedCondition').value!.title"/>
     </div>
     <div class="col-6">
-      <p-calendar class="modal-calendar"
-                  [formControlName]="'selectedValue'"
+      <p-calendar [formControlName]="'selectedValue'"
                   [showIcon]="true"
                   [dateFormat]="'dd.mm.yy'"/>
     </div>

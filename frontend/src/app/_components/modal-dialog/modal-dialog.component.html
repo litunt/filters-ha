@@ -1,14 +1,14 @@
-<p-dialog [header]="!isEditMode ? filter?.name : 'Filter'"
+<p-dialog [header]="!isEditMode ? filterName : 'Filter'"
           [modal]="true"
           [draggable]="false"
-          [(visible)]="display"
-          (onHide)="closeModal()"
+          [(visible)]="displayModal"
+          (onHide)="closeModal(false)"
           [resizable]="true">
   <ng-container *ngTemplateOutlet="body"></ng-container>
   <ng-template pTemplate="footer">
     <div *ngIf="isEditMode" >
-      <p-button styleClass="secondary-button" label="Close" (onClick)="closeModal()" />
-      <p-button styleClass="success-button" label="Save" (onClick)="closeModal()" />
+      <p-button styleClass="secondary-button" label="Close" (onClick)="closeModal(false)" />
+      <p-button styleClass="success-button" label="Save" (onClick)="closeModal(true)" />
     </div>
     <div *ngIf="!isEditMode" class="flex justify-content-start gap-2">
       <p-button styleClass="secondary-button" label="Edit" (onClick)="onEditMode(true)" />
