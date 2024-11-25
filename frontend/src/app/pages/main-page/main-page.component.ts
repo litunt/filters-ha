@@ -21,6 +21,7 @@ import {CardModule} from "primeng/card";
 import {DataCardComponent} from "../../_components/data-display/data-card/data-card.component";
 import {AppHttpInterceptor} from "../../_services/interceptor/app.http.interceptor";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {NotificationService} from "../../_services/notification.service";
 
 @Component({
   selector: 'app-main-page',
@@ -66,6 +67,7 @@ export class MainPageComponent implements OnInit {
   constructor(private filtersService: FiltersService,
               private sharedDataService: SharedDataService,
               private filterOptionsService: FilterOptionsService,
+              private notificationService: NotificationService,
               private loaderService: LoaderService) {
   }
 
@@ -106,6 +108,18 @@ export class MainPageComponent implements OnInit {
         this.filters.push(newFilter);
         this.filters.sort((f1, f2) => f1.id! - f2.id!);
         this.loaderService.setLoading(false);
+        this.notificationService.addSuccessMessage('notification.saved.success')
+      })
+    ).subscribe();
+  }
+
+  onFilterRemoved(filter: Filter): void {
+    this.loaderService.setLoading(true);
+    this.filtersService.removeFilter(filter).pipe(
+      tap((_) => {
+        this.filters = this.filters.filter((f: Filter) => f.id !== filter.id);
+        this.loaderService.setLoading(false);
+        this.notificationService.addSuccessMessage('notification.deleted.success')
       })
     ).subscribe();
   }
@@ -126,7 +140,6 @@ export class MainPageComponent implements OnInit {
       tap((filterOptions: FilterOptions) => {
         filterOptions.criteriaConditions = new Map(Object.entries(filterOptions.criteriaConditions));
         this.sharedDataService.updateData(filterOptions)
-        //this.filterOptions = filterOptions;
       })
     ).subscribe();
   }

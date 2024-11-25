@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild} fr
 import {PrimeTemplate} from "primeng/api";
 import {Table, TableModule, TableRowSelectEvent} from "primeng/table";
 import {NgForOf} from "@angular/common";
+import {Button, ButtonDirective} from "primeng/button";
 
 @Component({
   selector: 'data-table',
@@ -9,7 +10,9 @@ import {NgForOf} from "@angular/common";
   imports: [
     PrimeTemplate,
     TableModule,
-    NgForOf
+    NgForOf,
+    Button,
+    ButtonDirective
   ],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.css'
@@ -22,12 +25,17 @@ export class DataTableComponent<T> {
   selected?: T | null;
 
   @Output() dataRowSelected: EventEmitter<T> = new EventEmitter<T>();
+  @Output() dataRowRemoved: EventEmitter<T> = new EventEmitter<T>();
 
   @ViewChild('dataTable') dataTable?: Table;
 
   onRowSelect(event: TableRowSelectEvent): void {
     this.dataRowSelected.emit(event.data);
     this.clearSelection();
+  }
+
+  onRowRemoved(data: T): void {
+    this.dataRowRemoved.emit(data);
   }
 
   private clearSelection(): void {

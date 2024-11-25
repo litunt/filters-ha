@@ -2,5 +2,7 @@
   "criteria.remove.error": "Cannot remove criteria!",
   "criteria.remove.error.description": "Filter must contain at least one criteria row.",
   "ui.non.modal.mode": "Non-modal mode",
-  "ui.filter.heading": "Filter"
+  "ui.filter.heading": "Filter",
+  "notification.saved.success": "Filter data saved!",
+  "notification.deleted.success": "Filter data deleted!"
 }

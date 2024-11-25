@@ -5,10 +5,15 @@
   [dataKey]="'id'"
   [(selection)]="selected"
   (onRowSelect)="onRowSelect($event)"
-  [tableStyle]="{'min-width': '50rem'}">
+  [tableStyle]="{'width': '100%'}">
   <ng-template pTemplate="body" let-dataValue>
     <tr [pSelectableRow]="dataValue">
       <td *ngFor="let property of properties">{{dataValue[property]}}</td>
+      <td class="flex justify-content-end">
+        <button pButton type="button"
+                class="action-button"
+                icon="pi pi-trash" (click)="onRowRemoved(dataValue)"></button>
+      </td>
     </tr>
   </ng-template>
 </p-table>

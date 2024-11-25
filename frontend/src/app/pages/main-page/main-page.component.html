@@ -11,7 +11,8 @@
     </div>
     <data-table [dataList]="filters"
                 [properties]="properties"
-                (dataRowSelected)="onFilterSelected($event)">
+                (dataRowSelected)="onFilterSelected($event)"
+                (dataRowRemoved)="onFilterRemoved($event)">
     </data-table>
   </div>
   <div class="col-2"></div>

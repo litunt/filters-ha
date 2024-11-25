@@ -21,6 +21,10 @@ export class FiltersService {
     return this.createFilter(filter);
   }
 
+  public removeFilter(filter: Filter): Observable<void> {
+    return this.http.delete<void>(`/api/filters/${filter.id}`);
+  }
+
   private updateFilter(filter: Filter): Observable<Filter> {
     return this.http.put<Filter>(`/api/filters/${filter.id}`, filter);
   }

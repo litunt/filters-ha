@@ -36,14 +36,14 @@ export class FilterContentService {
     };
   }
 
-  getCriteriaValue(criteria: Criteria): number | string | Date {
+  getCriteriaValue(criteria: Criteria): number | string {
     switch (criteria.type) {
       case CriteriaTypeEnum.AMOUNT:
         return (criteria as CriteriaAmount).numberValue;
       case CriteriaTypeEnum.TITLE:
         return (criteria as CriteriaTitle).textValue;
       case CriteriaTypeEnum.DATE:
-        return new Date((criteria as CriteriaDate).dateValue);
+        return (criteria as CriteriaDate).dateValue;
     }
     return 0;
   }
@@ -79,7 +79,7 @@ export class FilterContentService {
           id,
           type,
           condition,
-          dateValue: criteriaValue as Date
+          dateValue: criteriaValue as string
         } as CriteriaDate
       }
       criteriaList.push(criteria);

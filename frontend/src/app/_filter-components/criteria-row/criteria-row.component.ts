@@ -44,8 +44,8 @@ export class CriteriaRowComponent implements OnInit {
   protected readonly criteriaTypes = criteriaTypes;
 
   ngOnInit(): void {
-    this.currentConditions = this.conditions?.amountConditions!;
     const typeControl: FormControl = this.criteriaForm.get('selectedType') as FormControl;
+    this.setConditionsOptions(typeControl.value.type);
     typeControl?.valueChanges.pipe(
       tap((value: CriteriaType) => {
         this.resetCriteria(value.type)
@@ -55,6 +55,16 @@ export class CriteriaRowComponent implements OnInit {
 
   getFormControlByName(name: string): FormControl {
     return this.criteriaForm && this.criteriaForm.get(name) as FormControl;
+  }
+
+  private setConditionsOptions(type: CriteriaTypeEnum): void {
+    if (type === CriteriaTypeEnum.TITLE) {
+      this.currentConditions = this.conditions?.textConditions!;
+    } else if (type === CriteriaTypeEnum.AMOUNT) {
+      this.currentConditions = this.conditions?.amountConditions!;
+    } else if (type === CriteriaTypeEnum.DATE) {
+      this.currentConditions = this.conditions?.dateConditions!;
+    }
   }
 
   private resetCriteria(type: CriteriaTypeEnum): void {

@@ -1,8 +1,10 @@
 package com.ha.filters.service;
 
 import static com.ha.filters.util.FilterValidator.validateRequest;
+import static java.lang.String.format;
 
 import com.ha.filters.entity.FilterEntity;
+import com.ha.filters.exceptions.FiltersAppRestClientException;
 import com.ha.filters.mapper.FiltersMapper;
 import com.ha.filters.model.Filter;
 import com.ha.filters.repository.FiltersRepository;
@@ -26,6 +28,13 @@ public class FiltersService {
     FilterEntity entity = filtersMapper.toEntity(filterToSave);
     entity.getCriteriaList().forEach(criteriaEntity -> criteriaEntity.setFilter(entity));
     return filtersMapper.toDomain(filtersRepository.save(entity));
+  }
+
+  public void deleteFilter(Long filterId) {
+    if (!filtersRepository.existsById(filterId)) {
+      throw new FiltersAppRestClientException(format("Filter with ID %s does not exist", filterId), "resource.not.exist");
+    }
+    filtersRepository.deleteById(filterId);
   }
 
 }

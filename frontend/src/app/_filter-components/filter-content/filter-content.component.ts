@@ -123,7 +123,7 @@ export class FilterContentComponent implements OnChanges {
         id: new FormControl<number | undefined>(criteria.id),
         selectedType: new FormControl<CriteriaType>(criteriaTypes.find(c => c.type === criteria.type)!),
         selectedCondition: new FormControl<Condition>(criteria.condition),
-        selectedValue: new FormControl<number | string | Date>(this.filterContentService.getCriteriaValue(criteria))
+        selectedValue: new FormControl<number | string>(this.filterContentService.getCriteriaValue(criteria))
       });
       this.criteriaList.push(criteriaGroup);
     }
@@ -134,7 +134,7 @@ export class FilterContentComponent implements OnChanges {
       id: new FormControl<number | undefined>(undefined),
       selectedType: new FormControl<CriteriaType>({ title: 'Amount', type: CriteriaTypeEnum.AMOUNT }),
       selectedCondition: new FormControl<Condition>( this.filterContentService.conditions.amountConditions[0]! ),
-      selectedValue: new FormControl<number | string | Date>(0)
+      selectedValue: new FormControl<number | string>("")
     });
     this.criteriaList.push(criteriaGroup);
   }

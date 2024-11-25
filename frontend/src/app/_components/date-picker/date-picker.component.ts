@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {tap} from "rxjs";
 
@@ -12,14 +12,10 @@ import {tap} from "rxjs";
   templateUrl: './date-picker.component.html',
   styleUrl: './date-picker.component.css'
 })
-export class DatePickerComponent implements OnInit {
+export class DatePickerComponent {
 
   @Input() control!: FormControl;
   dateValue: string = this.todayAsNative();
-
-  ngOnInit(): void {
-    this.control.setValue(this.transformToStandard(this.dateValue));
-  }
 
   updateValue(event: Event): void {
     const inputElement = event.target as HTMLInputElement
