@@ -20,19 +20,20 @@
     <p-button label="Add Filter" (click)="onAddFilterClicked()"/>
   </div>
   <div class="col-2"></div>
-  <div class="col-2"></div>
-  <div class="col-8">
-    <data-card #cardElement *ngIf="displayFilterContent && !displayFilterModal"
+  <div class="col-1"></div>
+  <div class="col-10">
+    <data-card *ngIf="displayFilterContent && !displayFilterModal"
                [title]="selectedFilter?.name"
                (onFilterSaved)="filterContent.onSaveRequested($event)"
                (displayChange)="onDisplayClosed()"
                [(editMode)]="isEditMode"
                [body]="modalContent"/>
   </div>
-  <div class="col-2"></div>
+  <div class="col-1"></div>
 </div>
 
-<modal-dialog [body]="modalContent"
+<modal-dialog *ngIf="displayFilterContent && displayFilterModal"
+              [body]="modalContent"
               (onFilterSaved)="filterContent.onSaveRequested($event)"
               [title]="selectedFilter?.name"
               [display]="displayFilterModal"

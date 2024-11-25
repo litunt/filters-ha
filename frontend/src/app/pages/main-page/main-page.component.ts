@@ -19,10 +19,19 @@ import {SharedDataService} from "../../_services/sharedData.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardModule} from "primeng/card";
 import {DataCardComponent} from "../../_components/data-display/data-card/data-card.component";
+import {AppHttpInterceptor} from "../../_services/interceptor/app.http.interceptor";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppHttpInterceptor,
+      multi: true
+    }
+  ],
   imports: [
     TableModule,
     Button,

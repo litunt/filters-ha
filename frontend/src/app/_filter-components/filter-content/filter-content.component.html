@@ -16,7 +16,7 @@
       <div *ngFor="let _ of criteriaList.controls; let i = index" class="grid">
         <div class="col-11">
           <criteria-row [criteriaForm]="getCriteriaForm(i)"
-                        [conditions]="getConditionsByCriteriaType(i)"
+                        [conditions]="getPossibleConditions()"
                         [editMode]="isEditMode">
           </criteria-row>
         </div>

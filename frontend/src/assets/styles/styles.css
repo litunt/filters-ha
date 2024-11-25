@@ -107,7 +107,7 @@ p-dropdown {
 }
 
 .p-dialog {
-  max-height: 40vw;
+  max-height: 50vw;
   min-width: 20vw;
   overflow: hidden;
 }

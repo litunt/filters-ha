@@ -6,19 +6,13 @@ import {Filter} from "../../_models/filter";
 import {Condition} from "../../_models/condition";
 import {RadioButtonGroupComponent} from "../radio-button-group/radio-button-group.component";
 import {Selection} from "../../_models/selection";
-import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {ConditionTypeEnum} from "../../_models/enums/conditionType.enum";
+import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {CriteriaTypeEnum} from "../../_models/enums/criteriaType.enum";
-import {CriteriaAmount} from "../../_models/criteria/criteriaAmount";
-import {CriteriaTitle} from "../../_models/criteria/criteriaTitle";
-import {CriteriaDate} from "../../_models/criteria/criteriaDate";
-import {Criteria} from "../../_models/criteria/criteria";
 import {Button} from "primeng/button";
 import {CriteriaType} from "../../_models/criteria/criteriaType";
 import {criteriaTypes} from "../../_util/constants";
-import {SharedDataService} from "../../_services/sharedData.service";
-import {FilterOptions} from "../../_models/filterOptions";
 import {NotificationService} from "../../_services/notification.service";
+import {FilterContentService} from "../../_services/filterContent.service";
 
 @Component({
   selector: 'filter-content',
@@ -40,22 +34,14 @@ export class FilterContentComponent implements OnChanges {
 
   @Input() isEditMode: boolean = false;
   @Input() filter?: Filter;
-
   @Output() filterValueChange: EventEmitter<Filter> = new EventEmitter<Filter>();
-
-  private amountConditions: Condition[] = [];
-  private textConditions: Condition[] = [];
-  private dateConditions: Condition[] = [];
 
   filterForm: FormGroup = new FormGroup({});
 
   constructor(private formBuilder: FormBuilder,
-              private notificationService: NotificationService,
-              private sharedDataService: SharedDataService) {
-    this.sharedDataService.filterOptions$.subscribe((options: FilterOptions) => {
-      this.mapConditionsByType(options.criteriaConditions);
-      this.filterForm = this.buildFormGroup();
-    });
+              private filterContentService: FilterContentService,
+              private notificationService: NotificationService) {
+    this.filterForm = this.buildFormGroup();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -66,7 +52,7 @@ export class FilterContentComponent implements OnChanges {
 
   public onSaveRequested(isSaved: boolean): void {
     if (isSaved) {
-      let updatedFilter = this.createFilterFromForm();
+      let updatedFilter = this.filterContentService.createFilterFromForm(this.filterForm, this.criteriaList);
       if (this.isExistingFilter) {
         updatedFilter.id = this.filter?.id;
       }
@@ -101,17 +87,8 @@ export class FilterContentComponent implements OnChanges {
     return this.filterForm.get('selection') as FormControl;
   }
 
-  getConditionsByCriteriaType(criteriaFormIdx: number): Condition[] {
-    const criteriaForm: FormGroup = this.getCriteriaForm(criteriaFormIdx);
-    const type: CriteriaTypeEnum = criteriaForm.get('selectedType')?.value!.type;
-    switch (type) {
-      case CriteriaTypeEnum.AMOUNT:
-        return this.amountConditions;
-      case CriteriaTypeEnum.TITLE:
-        return this.textConditions;
-      case CriteriaTypeEnum.DATE:
-        return this.dateConditions;
-    }
+  getPossibleConditions(): { amountConditions: Condition[], textConditions: Condition[], dateConditions: Condition[] } {
+    return this.filterContentService.conditions;
   }
 
   private buildFormGroup(): FormGroup {
@@ -146,7 +123,7 @@ export class FilterContentComponent implements OnChanges {
         id: new FormControl<number | undefined>(criteria.id),
         selectedType: new FormControl<CriteriaType>(criteriaTypes.find(c => c.type === criteria.type)!),
         selectedCondition: new FormControl<Condition>(criteria.condition),
-        selectedValue: new FormControl<number | string | Date>(this.getCriteriaValue(criteria))
+        selectedValue: new FormControl<number | string | Date>(this.filterContentService.getCriteriaValue(criteria))
       });
       this.criteriaList.push(criteriaGroup);
     }
@@ -156,71 +133,10 @@ export class FilterContentComponent implements OnChanges {
     const criteriaGroup = this.formBuilder.group({
       id: new FormControl<number | undefined>(undefined),
       selectedType: new FormControl<CriteriaType>({ title: 'Amount', type: CriteriaTypeEnum.AMOUNT }),
-      selectedCondition: new FormControl<Condition>( this.amountConditions[0]! ),
+      selectedCondition: new FormControl<Condition>( this.filterContentService.conditions.amountConditions[0]! ),
       selectedValue: new FormControl<number | string | Date>(0)
     });
     this.criteriaList.push(criteriaGroup);
-  }
-
-  private createFilterFromForm(): Filter {
-    return  {
-      name: this.filterForm.get('filterName')?.value,
-      selection: this.filterForm.get('selection')?.value,
-      criteriaList: this.collectCriteriaList()
-    };
-  }
-
-  private collectCriteriaList(): Criteria[] {
-    let criteriaList: Criteria[] = []
-    for (const criteriaGroup of this.criteriaList.controls) {
-      const type: CriteriaTypeEnum = criteriaGroup.get('selectedType')?.value!.type;
-      const condition: Condition = criteriaGroup.get('selectedCondition')?.value;
-      const criteriaValue: number | string | Date = criteriaGroup.get('selectedValue')?.value;
-      const id: number = criteriaGroup.get('id')?.value;
-      let criteria!: Criteria;
-      if (type === CriteriaTypeEnum.AMOUNT) {
-        criteria = {
-          id,
-          type,
-          condition,
-          numberValue: criteriaValue as number
-        } as CriteriaAmount
-      } else if (type === CriteriaTypeEnum.TITLE) {
-        criteria = {
-          id,
-          type,
-          condition,
-          textValue: criteriaValue as string
-        } as CriteriaTitle
-      } else if (type === CriteriaTypeEnum.DATE) {
-        criteria = {
-          id,
-          type,
-          condition,
-          dateValue: criteriaValue as Date
-        } as CriteriaDate
-      }
-      criteriaList.push(criteria);
-    }
-    return criteriaList;
-  }
-
-  private mapConditionsByType(conditions: Map<string, Condition[]>): void {
-    this.amountConditions = conditions.get(ConditionTypeEnum.AmountCondition)!;
-    this.textConditions = conditions.get(ConditionTypeEnum.TextCondition)!;
-    this.dateConditions = conditions.get(ConditionTypeEnum.DateCondition)!;
-  }
-
-  private getCriteriaValue(criteria: Criteria): number | string | Date {
-    switch (criteria.type) {
-      case CriteriaTypeEnum.AMOUNT:
-        return (criteria as CriteriaAmount).numberValue;
-      case CriteriaTypeEnum.TITLE:
-        return (criteria as CriteriaTitle).textValue;
-      case CriteriaTypeEnum.DATE:
-        return new Date((criteria as CriteriaDate).dateValue);
-    }
-    return 0;
   }
 
   private get isExistingFilter(): boolean {

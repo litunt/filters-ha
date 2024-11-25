@@ -1,5 +1,7 @@
 package com.ha.filters.service;
 
+import static com.ha.filters.util.FilterValidator.validateRequest;
+
 import com.ha.filters.entity.FilterEntity;
 import com.ha.filters.mapper.FiltersMapper;
 import com.ha.filters.model.Filter;
@@ -19,8 +21,9 @@ public class FiltersService {
     return filtersMapper.toDomains(filtersRepository.findAll());
   }
 
-  public Filter saveFilter(Filter updatedFilter) {
-    FilterEntity entity = filtersMapper.toEntity(updatedFilter);
+  public Filter saveFilter(Filter filterToSave) {
+    validateRequest(filterToSave);
+    FilterEntity entity = filtersMapper.toEntity(filterToSave);
     entity.getCriteriaList().forEach(criteriaEntity -> criteriaEntity.setFilter(entity));
     return filtersMapper.toDomain(filtersRepository.save(entity));
   }

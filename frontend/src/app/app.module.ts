@@ -3,7 +3,7 @@ import {AppComponent} from "./app.component";
 import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HTTP_INTERCEPTORS, HttpClient, provideHttpClient} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {ToastModule} from "primeng/toast";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -57,14 +57,14 @@ import {AppHttpInterceptor} from "./_services/interceptor/app.http.interceptor";
   ],
   providers: [
     MessageService,
-    provideZoneChangeDetection({eventCoalescing: true}),
-    provideHttpClient(),
     AppErrorService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AppHttpInterceptor,
       multi: true
-    }
+    },
+    //provideZoneChangeDetection({eventCoalescing: true}),
+    provideHttpClient(withInterceptorsFromDi()),
   ],
   exports: [
     DatePipe

@@ -1,7 +1,7 @@
 <p-card>
   <ng-template pTemplate="header">
     <div class="card-header">
-      <span class="card-title">{{title || 'ui.filter.heading' | translate}}</span>
+      <span class="card-title">{{title && !isEditMode ? title : 'ui.filter.heading' | translate}}</span>
       <p-button icon="pi pi-times" class="icon-only"
                 (click)="closeDisplay(false)"
                 [rounded]="true"
