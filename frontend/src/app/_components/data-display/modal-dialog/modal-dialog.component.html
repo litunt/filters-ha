@@ -1,0 +1,17 @@
+<p-dialog [header]="(!isEditMode ? title : 'ui.filter.heading' | translate)"
+          [modal]="true"
+          [draggable]="false"
+          [(visible)]="display"
+          (onHide)="closeDisplay(false)"
+          [resizable]="true">
+  <ng-container *ngTemplateOutlet="body"></ng-container>
+  <ng-template pTemplate="footer">
+    <div *ngIf="isEditMode" >
+      <p-button styleClass="secondary-button" label="Close" (onClick)="closeDisplay(false)" />
+      <p-button styleClass="success-button" label="Save" (onClick)="closeDisplay(true)" />
+    </div>
+    <div *ngIf="!isEditMode">
+      <p-button styleClass="secondary-button" label="Edit" (onClick)="onEditMode(true)" />
+    </div>
+  </ng-template>
+</p-dialog>

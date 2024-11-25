@@ -25,6 +25,11 @@ body {
   color: var(--text-color) !important;
 }
 
+.page-container {
+  max-height: calc(100vh - 100px);
+  overflow: auto;
+}
+
 .align-right {
   float: right;
 }
@@ -102,7 +107,7 @@ p-dropdown {
 }
 
 .p-dialog {
-  max-height: 60vw;
+  max-height: 40vw;
   min-width: 20vw;
   overflow: hidden;
 }
@@ -117,6 +122,19 @@ p-calendar {
   display: grid;
 }
 
+.p-card.p-card-component {
+  border-radius: 0 !important;
+}
+
 .p-radiobutton-label.ng-star-inserted.p-disabled {
   color: black;
+}
+
+.secondary-text {
+  color: var(--text-color-secondary)
+}
+
+.icon-only .p-button {
+  background-color: transparent;
+  border: none;
 }

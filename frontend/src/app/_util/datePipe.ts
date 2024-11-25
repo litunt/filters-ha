@@ -10,16 +10,16 @@ export class DatePipe implements PipeTransform {
       return '';
     }
     if (value instanceof Date) {
-      return `${value.getDate()}.${this.adjustMonth(value)}.${value.getFullYear()}`
+      return `${this.adjustValue(value.getDate())}.${this.adjustValue(value.getMonth())}.${value.getFullYear()}`
     }
     return value as string;
   }
 
-  private adjustMonth(value: Date): string {
-    let month = value.getMonth() + 1;
-    if (month < 10) {
-      return `0${month}`;
+  private adjustValue(value: number): string {
+    value += 1;
+    if (value < 10) {
+      return `0${value}`;
     }
-    return `${month}`;
+    return `${value}`;
   }
 }

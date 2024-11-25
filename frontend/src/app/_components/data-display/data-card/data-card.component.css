@@ -1,0 +1,17 @@
+@import "../../../../assets/styles/styles.css";
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 1.25rem;
+}
+
+.card-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #708da9;
+}

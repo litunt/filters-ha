@@ -1,35 +1,36 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef} from '@angular/core';
-import {DialogModule} from "primeng/dialog";
-import {CommonModule, NgIf, NgTemplateOutlet} from "@angular/common";
+import {Component, EventEmitter, Input, Output, TemplateRef} from '@angular/core';
 import {Button} from "primeng/button";
+import {CardModule} from "primeng/card";
+import {NgTemplateOutlet} from "@angular/common";
+import {PrimeTemplate} from "primeng/api";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
-  selector: 'modal-dialog',
   standalone: true,
+  template: '',
   imports: [
-    DialogModule,
-    NgTemplateOutlet,
-    CommonModule,
     Button,
-    NgIf
-  ],
-  templateUrl: './modal-dialog.component.html'
+    CardModule,
+    NgTemplateOutlet,
+    PrimeTemplate,
+    TranslateModule
+  ]
 })
-export class ModalDialogComponent {
+export class DataDisplayComponent {
 
   isEditMode: boolean = false;
 
   @Input() body: TemplateRef<Element> | null = null;
-  @Input() filterName?: string;
+  @Input() title?: string;
   @Output() onFilterSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() editModeChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() set editMode(value: boolean) {
     this.isEditMode = value;
   }
-  @Output() displayModalChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() displayModal: boolean = false;
+  @Output() displayChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() display: boolean = false;
 
-  closeModal(toSave: boolean): void {
+  closeDisplay(toSave: boolean): void {
     if (toSave) {
       this.onFilterSaved.emit(true);
     } else {
@@ -44,9 +45,10 @@ export class ModalDialogComponent {
   }
 
   private close(): void {
-    this.displayModal = false;
-    this.filterName = "";
-    this.displayModalChange.emit(false);
+    this.display = false;
+    this.title = "";
+    this.displayChange.emit(false);
     this.onEditMode(false);
   }
+
 }

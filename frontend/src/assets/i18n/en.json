@@ -1,4 +1,6 @@
 {
   "criteria.remove.error": "Cannot remove criteria!",
-  "criteria.remove.error.description": "Filter must contain at least one criteria row."
+  "criteria.remove.error.description": "Filter must contain at least one criteria row.",
+  "ui.non.modal.mode": "Non-modal mode",
+  "ui.filter.heading": "Filter"
 }

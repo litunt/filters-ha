@@ -6,6 +6,9 @@
   </div>
   <div class="col-2"></div>
   <div class="col-8">
+    <div class="flex justify-content-end secondary-text">
+      {{'ui.non.modal.mode' | translate}}:&nbsp;&nbsp;<p-inputSwitch [(ngModel)]="isNonModalMode"/>
+    </div>
     <data-table [dataList]="filters"
                 [properties]="properties"
                 (dataRowSelected)="onFilterSelected($event)">
@@ -17,12 +20,23 @@
     <p-button label="Add Filter" (click)="onAddFilterClicked()"/>
   </div>
   <div class="col-2"></div>
+  <div class="col-2"></div>
+  <div class="col-8">
+    <data-card #cardElement *ngIf="displayFilterContent && !displayFilterModal"
+               [title]="selectedFilter?.name"
+               (onFilterSaved)="filterContent.onSaveRequested($event)"
+               (displayChange)="onDisplayClosed()"
+               [(editMode)]="isEditMode"
+               [body]="modalContent"/>
+  </div>
+  <div class="col-2"></div>
 </div>
+
 <modal-dialog [body]="modalContent"
               (onFilterSaved)="filterContent.onSaveRequested($event)"
-              [filterName]= "selectedFilter?.name"
-              [(displayModal)]="displayFilterModal"
-              (displayModalChange)="onModalClosed()"
+              [title]="selectedFilter?.name"
+              [display]="displayFilterModal"
+              (displayChange)="onDisplayClosed()"
               [(editMode)]="isEditMode">
 </modal-dialog>
 

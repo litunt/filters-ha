@@ -1,0 +1,20 @@
+<p-card>
+  <ng-template pTemplate="header">
+    <div class="card-header">
+      <span class="card-title">{{title || 'ui.filter.heading' | translate}}</span>
+      <p-button icon="pi pi-times" class="icon-only"
+                (click)="closeDisplay(false)"
+                [rounded]="true"
+                [text]="true"/>
+    </div>
+  </ng-template>
+  <ng-container *ngTemplateOutlet="body"></ng-container>
+  <ng-template pTemplate="footer">
+    <div *ngIf="isEditMode" class="flex justify-content-end">
+      <p-button styleClass="success-button" label="Save" (onClick)="closeDisplay(true)" />
+    </div>
+    <div *ngIf="!isEditMode" class="flex justify-content-end">
+      <p-button styleClass="secondary-button" label="Edit" (onClick)="onEditMode(true)" />
+    </div>
+  </ng-template>
+</p-card>

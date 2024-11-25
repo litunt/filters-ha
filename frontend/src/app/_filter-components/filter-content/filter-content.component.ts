@@ -85,6 +85,10 @@ export class FilterContentComponent implements OnChanges {
     }
   }
 
+  addCriteriaRow(): void {
+    this.initDefaultCriteria();
+  }
+
   get criteriaList(): FormArray {
     return this.filterForm.get('criteriaList') as FormArray;
   }

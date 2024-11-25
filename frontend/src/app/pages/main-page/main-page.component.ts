@@ -8,14 +8,17 @@ import {Button} from "primeng/button";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {FormsModule} from "@angular/forms";
 import {DataTableComponent} from "../../_components/data-table/data-table.component";
-import {ModalDialogComponent} from "../../_components/modal-dialog/modal-dialog.component";
+import {ModalDialogComponent} from "../../_components/data-display/modal-dialog/modal-dialog.component";
 import {CriteriaRowComponent} from "../../_filter-components/criteria-row/criteria-row.component";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf, NgTemplateOutlet} from "@angular/common";
 import {FilterOptionsService} from "../../_services/filterOptions.service";
 import {FilterOptions} from "../../_models/filterOptions";
 import {InputTextModule} from "primeng/inputtext";
 import {FilterContentComponent} from "../../_filter-components/filter-content/filter-content.component";
 import {SharedDataService} from "../../_services/sharedData.service";
+import {TranslateModule} from "@ngx-translate/core";
+import {CardModule} from "primeng/card";
+import {DataCardComponent} from "../../_components/data-display/data-card/data-card.component";
 
 @Component({
   selector: 'app-main-page',
@@ -31,7 +34,11 @@ import {SharedDataService} from "../../_services/sharedData.service";
     NgForOf,
     NgIf,
     InputTextModule,
-    FilterContentComponent
+    FilterContentComponent,
+    TranslateModule,
+    NgTemplateOutlet,
+    CardModule,
+    DataCardComponent
   ],
   templateUrl: './main-page.component.html',
 })
@@ -41,9 +48,10 @@ export class MainPageComponent implements OnInit {
   @ViewChild('filterContent') filterContent!: FilterContentComponent;
   filters: Filter[] = [];
   selectedFilter?: Filter;
-  //filterOptions?: FilterOptions;
+  isNonModalMode: boolean = false;
 
   displayFilterModal: boolean = false;
+  displayFilterContent: boolean = false;
   isEditMode: boolean = false;
 
   constructor(private filtersService: FiltersService,
@@ -59,18 +67,25 @@ export class MainPageComponent implements OnInit {
 
   onFilterSelected(filter: Filter): void {
     this.selectedFilter = filter;
-    this.displayFilterModal = true;
+    this.displayFilterContent = true;
     this.isEditMode = false;
+    if (!this.isNonModalMode) {
+      this.displayFilterModal = true;
+    }
   }
 
   onAddFilterClicked(): void {
-    this.displayFilterModal = true;
+    this.displayFilterContent = true;
     this.isEditMode = true;
+    if (!this.isNonModalMode) {
+      this.displayFilterModal = true;
+    }
   }
 
-  onModalClosed(): void {
+  onDisplayClosed(): void {
     this.selectedFilter = undefined;
     this.displayFilterModal = false;
+    this.displayFilterContent = false;
     this.isEditMode = false;
   }
 
