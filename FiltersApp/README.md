@@ -11,13 +11,14 @@
 
 * config - configuration layer, provides configurations for application
 * controller - controller layer, accepts REST requests
-* model - model layer, contains the structure of models (domains) used throughout the application
+* entity - contains entity classes
 * enums - holds enumerated value classes
 * exceptions - layer that contains exception handling objects
+* mapper - contains mapper interfaces to map entity-to-domain and domain-to-entity
+* model - model layer, contains the structure of models (domains) used throughout the application
 * repository - layer with repository interfaces to get data from the database
-* entity - contains entity classes
 * service - service layer, responsible for business logic
-* utils - helper layer, includes commonly used functionality and app constants
+* util - helper layer, includes commonly used functionality and app constants
 * validation - layer that contains validation handling
 
 ## Application configurations

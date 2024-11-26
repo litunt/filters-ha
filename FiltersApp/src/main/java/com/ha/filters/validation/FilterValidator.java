@@ -1,4 +1,4 @@
-package com.ha.filters.util;
+package com.ha.filters.validation;
 
 import static jakarta.validation.Validation.buildDefaultValidatorFactory;
 import static java.lang.String.format;

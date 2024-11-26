@@ -1,6 +1,6 @@
 package com.ha.filters.service;
 
-import static com.ha.filters.util.FilterValidator.validateRequest;
+import static com.ha.filters.validation.FilterValidator.validateRequest;
 import static java.lang.String.format;
 
 import com.ha.filters.entity.FilterEntity;
