@@ -1,8 +1,15 @@
 {
   "criteria.remove.error": "Cannot remove criteria!",
   "criteria.remove.error.description": "Filter must contain at least one criteria row.",
-  "ui.non.modal.mode": "Non-modal mode",
+  "ui.askend.title": "Askend",
   "ui.filter.heading": "Filter",
+  "ui.filter.name": "Filter name",
+  "ui.filters.collection.heading": "Filters collection",
+  "ui.criteria": "Criteria",
+  "ui.selection": "Selection",
+  "ui.non.modal.mode": "Non-modal mode",
+  "ui.text.designedBy": "Designed by",
+  "ui.button.addFilter": "Add Filter",
   "notification.saved.success": "Filter data saved!",
   "notification.deleted.success": "Filter data deleted!"
 }

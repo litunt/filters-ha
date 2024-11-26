@@ -2,7 +2,7 @@
   <div class="grid">
     <ng-container *ngIf="isEditMode">
       <div class="col-2">
-        <b>Filter name</b>
+        <b>{{'ui.filter.name' | translate }}</b>
       </div>
       <div class="col-10">
         <input pInputText type="text"
@@ -10,7 +10,7 @@
       </div>
     </ng-container>
     <div class="col-2">
-      <b>Criteria</b>
+      <b>{{'ui.criteria' | translate}}</b>
     </div>
     <div class="col-10">
       <div *ngFor="let _ of criteriaList.controls; let i = index" class="grid">
@@ -29,7 +29,7 @@
       <p-button label="Add row" icon="pi pi-plus" (click)="addCriteriaRow()" />
     </div>
     <div class="col-2">
-      <b>Selection</b>
+      <b>{{'ui.selection' | translate}}</b>
     </div>
     <div class="col-10" *ngIf="isEditMode">
       <radio-button-group [selected]="filter?.selection"

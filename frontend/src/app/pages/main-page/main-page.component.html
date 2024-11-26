@@ -1,7 +1,7 @@
 <div class="grid">
   <div class="col-12">
     <div class="text-center">
-      <h2>Filters Collection</h2>
+      <h2>{{'ui.filters.collection.heading' | translate}}</h2>
     </div>
   </div>
   <div class="col-2"></div>
@@ -18,7 +18,7 @@
   <div class="col-2"></div>
   <div class="col-2"></div>
   <div class="col-8">
-    <p-button label="Add Filter" (click)="onAddFilterClicked()"/>
+    <p-button [label]="'ui.button.addFilter' | translate" (click)="onAddFilterClicked()"/>
   </div>
   <div class="col-2"></div>
   <div class="col-1"></div>

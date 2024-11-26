@@ -14,6 +14,7 @@ export class LoaderInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<Response>, next: HttpHandler): Observable<HttpEvent<Response>> {
     return next.handle(req)
       .pipe(catchError((err) => {
+        this.loaderService.setLoading(false);
         return throwError(() => err);
       }))
       .pipe(

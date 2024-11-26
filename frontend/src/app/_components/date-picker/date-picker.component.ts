@@ -1,6 +1,5 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {tap} from "rxjs";
 
 @Component({
   selector: 'date-picker',

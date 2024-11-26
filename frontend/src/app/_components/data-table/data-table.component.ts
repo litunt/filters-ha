@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {PrimeTemplate} from "primeng/api";
 import {Table, TableModule, TableRowSelectEvent} from "primeng/table";
 import {NgForOf} from "@angular/common";

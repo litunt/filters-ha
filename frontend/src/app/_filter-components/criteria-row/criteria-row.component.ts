@@ -6,7 +6,6 @@ import {PaginatorModule} from "primeng/paginator";
 import {ChipsModule} from "primeng/chips";
 import {Condition} from "../../_models/condition";
 import {CalendarModule} from "primeng/calendar";
-import {DatePipe} from "../../_util/datePipe";
 import {NumberInputComponent} from "../../_components/number-input/number-input.component";
 import {criteriaTypes} from "../../_util/constants";
 import {tap} from "rxjs";
@@ -29,8 +28,7 @@ import {DatePickerComponent} from "../../_components/date-picker/date-picker.com
     ChipsModule,
     CalendarModule,
     NumberInputComponent,
-    DatePickerComponent,
-    DatePipe
+    DatePickerComponent
   ],
   templateUrl: './criteria-row.component.html'
 })

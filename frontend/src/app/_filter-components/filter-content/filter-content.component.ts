@@ -13,6 +13,7 @@ import {CriteriaType} from "../../_models/criteria/criteriaType";
 import {criteriaTypes} from "../../_util/constants";
 import {NotificationService} from "../../_services/notification.service";
 import {FilterContentService} from "../../_services/filterContent.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'filter-content',
@@ -25,7 +26,8 @@ import {FilterContentService} from "../../_services/filterContent.service";
     RadioButtonGroupComponent,
     ReactiveFormsModule,
     Button,
-    RadioButtonGroupComponent
+    RadioButtonGroupComponent,
+    TranslateModule
   ],
   templateUrl: './filter-content.component.html',
   styleUrl: './filter-content.component.css'

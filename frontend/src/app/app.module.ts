@@ -1,4 +1,4 @@
-import {NgModule, provideZoneChangeDetection} from "@angular/core";
+import {NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
 import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
@@ -14,7 +14,6 @@ import {DividerModule} from "primeng/divider";
 import {AppRoutingModule} from "./app-routing.module";
 import {MessageService} from "primeng/api";
 import {InputSwitchModule} from "primeng/inputswitch";
-import {DatePipe} from "./_util/datePipe";
 import {DropdownModule} from "primeng/dropdown";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PaginatorModule} from "primeng/paginator";
@@ -52,7 +51,6 @@ import {AppHttpInterceptor} from "./_services/interceptor/app.http.interceptor";
     ReactiveFormsModule,
     ChipsModule,
     CalendarModule,
-    DatePipe,
     ButtonModule
   ],
   providers: [
@@ -63,11 +61,7 @@ import {AppHttpInterceptor} from "./_services/interceptor/app.http.interceptor";
       useClass: AppHttpInterceptor,
       multi: true
     },
-    //provideZoneChangeDetection({eventCoalescing: true}),
     provideHttpClient(withInterceptorsFromDi()),
-  ],
-  exports: [
-    DatePipe
   ],
   bootstrap: [AppComponent]
 })
