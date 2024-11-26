@@ -12,7 +12,7 @@
     <data-table [dataList]="filters"
                 [properties]="properties"
                 (dataRowSelected)="onFilterSelected($event)"
-                (dataRowRemoved)="onFilterRemoved($event)">
+                (dataRowRemoved)="onFilterDeleted($event)">
     </data-table>
   </div>
   <div class="col-2"></div>
@@ -26,6 +26,7 @@
     <data-card *ngIf="displayFilterContent && !displayFilterModal"
                [title]="selectedFilter?.name"
                (onFilterSaved)="filterContent.onSaveRequested($event)"
+               (onFilterDeleted)="onFilterDeleted(selectedFilter!)"
                (displayChange)="onDisplayClosed()"
                [(editMode)]="isEditMode"
                [body]="modalContent"/>
@@ -36,6 +37,7 @@
 <modal-dialog *ngIf="displayFilterContent && displayFilterModal"
               [body]="modalContent"
               (onFilterSaved)="filterContent.onSaveRequested($event)"
+              (onFilterDeleted)="onFilterDeleted(selectedFilter!)"
               [title]="selectedFilter?.name"
               [display]="displayFilterModal"
               (displayChange)="onDisplayClosed()"

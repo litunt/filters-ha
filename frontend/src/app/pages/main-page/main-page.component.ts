@@ -113,7 +113,7 @@ export class MainPageComponent implements OnInit {
     ).subscribe();
   }
 
-  onFilterRemoved(filter: Filter): void {
+  onFilterDeleted(filter: Filter): void {
     this.loaderService.setLoading(true);
     this.filtersService.removeFilter(filter).pipe(
       tap((_) => {

@@ -23,6 +23,7 @@ export class DataDisplayComponent {
   @Input() body: TemplateRef<Element> | null = null;
   @Input() title?: string;
   @Output() onFilterSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() onFilterDeleted: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() editModeChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() set editMode(value: boolean) {
     this.isEditMode = value;
@@ -42,6 +43,11 @@ export class DataDisplayComponent {
   onEditMode(isEdit: boolean): void {
     this.isEditMode = isEdit;
     this.editModeChange.emit(isEdit);
+  }
+
+  delete(): void {
+    this.onFilterDeleted.emit(true);
+    this.close();
   }
 
   private close(): void {

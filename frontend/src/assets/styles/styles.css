@@ -77,6 +77,11 @@ body {
   border-color: transparent
 }
 
+.danger-button {
+  background-color: var(--red-500);
+  border-color: transparent
+}
+
 .success-button:hover {
   background-color: var(--green-700);
   border-color: transparent;

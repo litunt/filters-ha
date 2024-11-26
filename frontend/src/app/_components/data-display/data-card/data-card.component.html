@@ -15,6 +15,7 @@
     </div>
     <div *ngIf="!isEditMode" class="flex justify-content-end">
       <p-button styleClass="secondary-button" label="Edit" (onClick)="onEditMode(true)" />
+      <p-button styleClass="danger-button" label="Delete" (onClick)="delete()" />
     </div>
   </ng-template>
 </p-card>
