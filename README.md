@@ -44,6 +44,9 @@ overall theme. This is the approach I followed when solving test assignment. One
 representation of datepicker component from PrimeNG, therefore I used native HTML input of date type, designed the visual side of it 
 accordingly, as well as adjusted data transfer logic between components.
 
+In case of more real ife related situation, one of the details I would put more attention to could be runtime validation of user input. 
+I have implemented some basic checks during filter creation, but could be done more precisely to make user experience more convenient 
+(especially in case of larger data forms).
 
 ### Technology stack
 
