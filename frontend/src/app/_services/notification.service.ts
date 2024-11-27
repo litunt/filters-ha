@@ -38,7 +38,8 @@ export class NotificationService {
         severity: level,
         summary: this.translateService.instant(message),
         detail: details ? this.translateService.instant(details) : '',
-        sticky: true
+        sticky: true,
+        life: 5000
       });
   }
 

@@ -82,22 +82,12 @@ Image building
 
 ## Running application locally
 
+**NB!** It is recommended to run PostgreSQL database in Docker container before running the application.
+
 Run the command:
 ```sh
 ./gradlew bootRun
 ```
-
-Running application tests:
-
-```sh
-./gradlew FiltersApp:test
-```
-
-## Running tests
-There are both unit and integration tests written. Since integration tests require connection to the database,
-the `Test Containers` library is being used to set PostgreSQL container up only during running tests, so that
-it would not be necessary to start the real database up. To write test scenarios, `Jupiter` library is used,
-as well as `WebMVC` to emulate REST requests and `Mockito` to imitate beans.
 
 ## Using application locally
 To use application by URL on local machine, the application is accessible by `http://localhost:8081/api` URL.
@@ -112,3 +102,16 @@ This provides the data about application's current status, is application up or 
 ## Swagger UI
 It is also possible to observe API endpoints with Swagger tool. The Swagger page can be accessed locally
 using URL `http://localhost:8081/api/swagger-ui/index.html`.
+
+## Running tests
+There are both unit and integration tests written. Since integration tests require connection to the database,
+the `Test Containers` library is being used to set PostgreSQL container up only during running tests, so that
+it would not be necessary to start the real database up. To write test scenarios, `Jupiter` library is used,
+as well as `WebMVC` to emulate REST requests and `Mockito` to imitate beans.
+
+Run the command:
+
+```sh
+./gradlew test
+```
+

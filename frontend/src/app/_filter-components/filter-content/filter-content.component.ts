@@ -6,7 +6,7 @@ import {Filter} from "../../_models/filter";
 import {Condition} from "../../_models/condition";
 import {RadioButtonGroupComponent} from "../radio-button-group/radio-button-group.component";
 import {Selection} from "../../_models/selection";
-import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CriteriaTypeEnum} from "../../_models/enums/criteriaType.enum";
 import {Button} from "primeng/button";
 import {CriteriaType} from "../../_models/criteria/criteriaType";
@@ -54,15 +54,25 @@ export class FilterContentComponent implements OnChanges {
 
   public onSaveRequested(isSaved: boolean): void {
     if (isSaved) {
-      let updatedFilter = this.filterContentService.createFilterFromForm(this.filterForm, this.criteriaList);
-      if (this.isExistingFilter) {
-        updatedFilter.id = this.filter?.id;
+      this.filterContentService.markFormAsDirty(this.filterForm);
+      if (this.filterForm.valid) {
+        let updatedFilter = this.filterContentService.createFilterFromForm(this.filterForm, this.criteriaList);
+        if (this.isExistingFilter) {
+          updatedFilter.id = this.filter?.id;
+        }
+        this.filterValueChange.emit(updatedFilter);
+        this.filter = undefined;
+        this.filterForm = this.buildFormGroup();
+        this.createCriteriaFormGroups();
       }
-      this.filterValueChange.emit(updatedFilter);
     }
-    this.filter = undefined;
-    this.filterForm = this.buildFormGroup();
-    this.createCriteriaFormGroups();
+  }
+
+  displayError(controlName: string): boolean {
+    return this.filterForm.dirty!
+      && this.filterForm.invalid!
+      && this.filterForm.get(controlName)?.dirty!
+      && this.filterForm.get(controlName)?.invalid!;
   }
 
   removeCriteriaRow(idx: number): void {
@@ -95,9 +105,9 @@ export class FilterContentComponent implements OnChanges {
 
   private buildFormGroup(): FormGroup {
     return this.formBuilder.group({
-      criteriaList: this.formBuilder.array([]),
-      filterName: new FormControl<string>(""),
-      selection: new FormControl<Selection | null>(null)
+      criteriaList: this.formBuilder.array([], Validators.minLength(1)),
+      filterName: new FormControl<string>("", Validators.required),
+      selection: new FormControl<Selection | null>(null, Validators.required)
     });
   }
 
@@ -136,7 +146,7 @@ export class FilterContentComponent implements OnChanges {
       id: new FormControl<number | undefined>(undefined),
       selectedType: new FormControl<CriteriaType>({ title: 'Amount', type: CriteriaTypeEnum.AMOUNT }),
       selectedCondition: new FormControl<Condition>( this.filterContentService.conditions.amountConditions[0]! ),
-      selectedValue: new FormControl<number | string>("")
+      selectedValue: new FormControl<number | string>("", Validators.required)
     });
     this.criteriaList.push(criteriaGroup);
   }

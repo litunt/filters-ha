@@ -4,6 +4,7 @@ import static com.ha.filters.util.constants.FiltersAppMessageConstants.VALIDATIO
 import static com.ha.filters.util.constants.FiltersAppMessageConstants.VALIDATION_ERR_MIN_LENGTH;
 
 import com.ha.filters.model.criteria.Criteria;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -17,7 +18,7 @@ public record Filter (
     Selection selection,
     @NotNull(message = VALIDATION_ERR_EMPTY)
     @Size(min = 1, message = VALIDATION_ERR_MIN_LENGTH)
-    List<Criteria> criteriaList
+    List<@Valid Criteria> criteriaList
 ) {
 
 }

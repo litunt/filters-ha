@@ -8,6 +8,7 @@ import com.ha.filters.exceptions.FiltersAppRestClientException;
 import com.ha.filters.mapper.FiltersMapper;
 import com.ha.filters.model.Filter;
 import com.ha.filters.repository.FiltersRepository;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class FiltersService {
     return filtersMapper.toDomains(filtersRepository.findAll());
   }
 
+  @Transactional
   public Filter saveFilter(Filter filterToSave) {
     validateRequest(filterToSave);
     FilterEntity entity = filtersMapper.toEntity(filterToSave);

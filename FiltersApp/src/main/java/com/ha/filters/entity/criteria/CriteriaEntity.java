@@ -1,11 +1,11 @@
 package com.ha.filters.entity.criteria;
 
+import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static jakarta.persistence.InheritanceType.JOINED;
 
 import com.ha.filters.entity.FilterEntity;
-import com.ha.filters.entity.condition.AmountConditionEntity;
 import com.ha.filters.entity.condition.ConditionEntity;
 import com.ha.filters.enums.CriteriaType;
 import jakarta.persistence.Column;
@@ -40,7 +40,7 @@ public abstract class CriteriaEntity {
   @Column(nullable = false)
   private CriteriaType type;
 
-  @ManyToOne(optional = false)
+  @ManyToOne(optional = false, cascade = ALL)
   @JoinColumn(name = "filter_id", referencedColumnName = "id")
   private FilterEntity filter;
 

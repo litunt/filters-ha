@@ -6,8 +6,6 @@ server:
 spring:
   application:
     name: 'Filters App'
-  profiles:
-    active: test
   jpa:
     database: postgresql
     properties:
@@ -16,11 +14,4 @@ spring:
           time_zone: Europe/Tallinn
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${APP_DB_HOST:localhost}:${APP_DB_PORT:5332}/${APP_DB:filtersdb}
-    username: ${APP_DB_USER:root}
-    password: ${APP_DB_PASSWORD:root}
-  flyway:
-    locations: ../../../flyway/migration
-    encoding: UTF-8
-    enabled: false
 

@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "My Filter 1",
+    "selection": {
+      "id": 1,
+      "title": "Select 1"
+    },
+    "criteriaList": [
+      {
+        "id": 1,
+        "type": "TITLE",
+        "condition": {
+          "id": 7,
+          "title": "Starts with",
+          "conditionType": "TextCondition"
+        },
+        "textValue": "Meow"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "My Filter 2",
+    "selection": {
+      "id": 3,
+      "title": "Select 3"
+    },
+    "criteriaList": [
+      {
+        "id": 2,
+        "type": "AMOUNT",
+        "condition": {
+          "id": 1,
+          "title": "More",
+          "conditionType": "AmountCondition"
+        },
+        "numberValue": 50
+      },
+      {
+        "id": 3,
+        "type": "DATE",
+        "condition": {
+          "id": 11,
+          "title": "From",
+          "conditionType": "DateCondition"
+        },
+        "dateValue": "25.10.2021"
+      }
+    ]
+  }
+]

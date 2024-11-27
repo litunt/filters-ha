@@ -22,6 +22,7 @@ import {DataCardComponent} from "../../_components/data-display/data-card/data-c
 import {AppHttpInterceptor} from "../../_services/interceptor/app.http.interceptor";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {NotificationService} from "../../_services/notification.service";
+import {DataDisplayService} from "../../_services/dataDisplay.service";
 
 @Component({
   selector: 'app-main-page',
@@ -68,6 +69,7 @@ export class MainPageComponent implements OnInit {
               private sharedDataService: SharedDataService,
               private filterOptionsService: FilterOptionsService,
               private notificationService: NotificationService,
+              private dataDisplayService: DataDisplayService,
               private loaderService: LoaderService) {
   }
 
@@ -79,6 +81,7 @@ export class MainPageComponent implements OnInit {
   onFilterSelected(filter: Filter): void {
     this.selectedFilter = filter;
     this.displayFilterContent = true;
+    this.dataDisplayService.updateData(true);
     this.isEditMode = false;
     if (!this.isNonModalMode) {
       this.displayFilterModal = true;
@@ -87,6 +90,7 @@ export class MainPageComponent implements OnInit {
 
   onAddFilterClicked(): void {
     this.displayFilterContent = true;
+    this.dataDisplayService.updateData(true);
     this.isEditMode = true;
     if (!this.isNonModalMode) {
       this.displayFilterModal = true;
@@ -102,6 +106,7 @@ export class MainPageComponent implements OnInit {
 
   onFilterSaved(filter: Filter): void {
     this.loaderService.setLoading(true);
+    this.dataDisplayService.updateData(false);
     this.filtersService.saveFilter(filter).pipe(
       tap((newFilter: Filter) => {
         this.filters = this.filters.filter((f: Filter) => f.id !== newFilter.id);
@@ -115,6 +120,7 @@ export class MainPageComponent implements OnInit {
 
   onFilterDeleted(filter: Filter): void {
     this.loaderService.setLoading(true);
+    this.dataDisplayService.updateData(false);
     this.filtersService.removeFilter(filter).pipe(
       tap((_) => {
         this.filters = this.filters.filter((f: Filter) => f.id !== filter.id);

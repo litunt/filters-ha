@@ -28,7 +28,7 @@ value would be always empty, which affects data consistency not in a good way. A
 database and map into required value type, based on criteria type. And this adds extra complexity on code implementation layer and might be
 more error-prone. These are the main drawbacks why I decided to choose database inheritance for this solution.
 
-Criteria also has condition(s), and condition directly depends on criteria type. There can be conditions for text values, numeric values and
+Criteria also has condition, and condition directly depends on criteria type. There can be conditions for text values, numeric values and
 date values. This is solved with one table in the database. However, on code level I wanted to achieve a better overview of what condition
 condition type is being use now, as well as to avoid excessive conditional statements for type checking. For this case, a `single table` 
 inheritance for entities was chosen and type based classes created, which mapping happens based on dedicated `discriminator column`.

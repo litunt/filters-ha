@@ -34,6 +34,18 @@ body {
   float: right;
 }
 
+.ng-invalid {
+  border-width: 3px;
+}
+
+.p-error {
+  font-size: smaller;
+}
+
+.error-container {
+  padding-top: 0;
+}
+
 .p-dialog-header .p-button {
   background: transparent;
 }

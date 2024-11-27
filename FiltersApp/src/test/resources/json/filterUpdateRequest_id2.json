@@ -1,0 +1,20 @@
+{
+  "id": 2,
+  "name": "New Filter Updated",
+  "selection": {
+    "id": 2,
+    "title": "Select 2"
+  },
+  "criteriaList": [
+    {
+      "id": 1,
+      "type": "TITLE",
+      "condition": {
+        "id": 7,
+        "title": "Starts with",
+        "conditionType": "TextCondition"
+      },
+      "textValue": "Hello"
+    }
+  ]
+}

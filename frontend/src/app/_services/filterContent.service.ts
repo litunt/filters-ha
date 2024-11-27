@@ -28,6 +28,15 @@ export class FilterContentService {
     });
   }
 
+  markFormAsDirty(filterForm: FormGroup): void {
+    filterForm.markAsDirty();
+    const controls = filterForm.controls;
+
+    Object.keys(controls).forEach((controlName) => {
+      controls[controlName].markAsDirty();
+    });
+  }
+
   createFilterFromForm(filterForm: FormGroup, criteriaFormArray: FormArray): Filter {
     return  {
       name: filterForm.get('filterName')?.value,

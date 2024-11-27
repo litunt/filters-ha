@@ -4,6 +4,7 @@ import {CardModule} from "primeng/card";
 import {NgTemplateOutlet} from "@angular/common";
 import {PrimeTemplate} from "primeng/api";
 import {TranslateModule} from "@ngx-translate/core";
+import {DataDisplayService} from "../../_services/dataDisplay.service";
 
 @Component({
   standalone: true,
@@ -31,13 +32,21 @@ export class DataDisplayComponent {
   @Output() displayChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() display: boolean = false;
 
+  constructor(private dataDisplayService: DataDisplayService) {
+    this.dataDisplayService.doDisplay$.subscribe((doDisplay: boolean) => {
+      if (!doDisplay) {
+        this.close();
+      }
+    });
+  }
+
   closeDisplay(toSave: boolean): void {
     if (toSave) {
       this.onFilterSaved.emit(true);
     } else {
       this.onFilterSaved.emit(false);
+      this.close();
     }
-    this.close();
   }
 
   onEditMode(isEdit: boolean): void {
